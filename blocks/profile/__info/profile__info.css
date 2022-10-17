@@ -1,0 +1,17 @@
+.profile__info {
+    display: flex;
+    flex-direction: column;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 336px;
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .profile__info {
+        padding-top: 26px;
+        align-items: center;
+        max-width: 320px;
+        } 
+        }
