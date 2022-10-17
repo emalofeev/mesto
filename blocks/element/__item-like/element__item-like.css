@@ -9,3 +9,8 @@
     padding: 0;
     margin-left: 15px;
 }
+
+.element__item-like:hover {
+    opacity: .5;
+    cursor: pointer;
+}
