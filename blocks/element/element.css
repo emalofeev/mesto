@@ -1,7 +1,12 @@
 .element {
     background-color: #fff;
     border-radius: 10px;
-    max-width: 282px;
     width: 100%;
 }
 
+
+@media screen and (max-width: 768px) {
+    .element {
+        max-width: calc(100vw - 38px);
+        } 
+        }
