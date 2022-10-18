@@ -10,3 +10,9 @@
     max-width: 358px;
     width: 100%;
 }
+
+@media screen and (max-width: 768px) {
+    .popup__content-job {
+        margin-bottom: 41px;
+        } 
+        }
