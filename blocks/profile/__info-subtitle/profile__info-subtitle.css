@@ -3,7 +3,7 @@
     font-size: 18px;
     line-height: 22px;
     color: #FFFFFF;
-    margin: 16px 0 0 0;
+    margin: 7px 0 0 0;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -13,7 +13,6 @@
 .profile__info-subtitle {
     font-size: 14px;
     line-height: 17px;
-    margin-top: 14px;
     max-width: 282px;
     width: 100%;
     text-align: center;

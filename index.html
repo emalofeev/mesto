@@ -1,74 +1,90 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="./pages/index.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mesto</title>
-  </head>
-  <body class="page">
-    <header class="header">
-      <img class="header__logo" alt="Лого" src="./images/header-logo.svg" />
-    </header>
 
-    <main class="content">
-      <section class="profile">
-        <div class="profile__avatar">
-          <img class="profile__avatar-image" alt="Аватар" src="./images/avatar.png" />
-        </div>
-        <div class="profile__info">
-          <div class="profile__edit">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="./pages/index.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mesto</title>
+</head>
+
+<body class="page">
+  <header class="header">
+    <img class="header__logo" alt="Лого" src="./images/header-logo.svg" />
+  </header>
+
+  <main class="content">
+    <section class="profile">
+      <div class="profile__avatar">
+        <img class="profile__avatar-image" alt="Аватар" src="./images/avatar.png" />
+      </div>
+      <div class="profile__info">
+        <div class="profile__edit">
           <h1 class="profile__edit-title">Жак-Ив Кусто</h1>
           <button class="profile__edit-button"></button>
-          </div>
-          <p class="profile__info-subtitle">Исследователь океана</p>
         </div>
-        <button class="profile__button"></button>
+        <p class="profile__info-subtitle">Исследователь океана</p>
       </div>
-      </section>
-      <section class="elements">
-        <article class="element">
-          <img class="element__image" alt="Развалины Кносского двореца" src="./images/minos.jpg">
-          <div class="element__item">
-            <h2 class="element__item-name">Кносский дворец</h2>
-            <button class="element__item-like"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" alt="Вид на бухту Балос>" src="./images/balos.jpg">
-          <div class="element__item">
-            <h2 class="element__item-name">Бухта Балос</h2>
-            <button class="element__item-like"></button>
-        </article>
-        <article class="element">
-          <img class="element__image" alt="Внутри Диктейской пещеры" src="./images/cave.jpg">
-          <div class="element__item">
-            <h2 class="element__item-name">Диктейская пещера</h2>
-            <button class="element__item-like"></button>
-        </article>
-        <article class="element">
-          <img class="element__image" alt="Берег пляжа Матала" src="./images/matala.jpg">
-          <div class="element__item">
-            <h2 class="element__item-name">Пляж Матала</h2>
-            <button class="element__item-like"></button>
-        </article>
-        <article class="element">
-          <img class="element__image" alt="Вид на озеро Курна" src="./images/kurna.jpg">
-          <div class="element__item">
-            <h2 class="element__item-name">Озеро Курна</h2>
-            <button class="element__item-like"></button>
-        </article>
-        <article class="element">
-          <img class="element__image" alt="Здание монастыря Аркади" src="./images/arkadi.jpg">
-          <div class="element__item">
-            <h2 class="element__item-name">Монастырь Аркади</h2>
-            <button class="element__item-like"></button>
-        </article>
-      </section>
-    </main>
+      <button class="profile__button"></button>
+      </div>
+    </section>
+    <section class="elements">
+      <article class="element">
+        <img class="element__image" alt="Развалины Кносского двореца" src="./images/minos.jpg">
+        <div class="element__item">
+          <h2 class="element__item-name">Кносский дворец</h2>
+          <button class="element__item-like"></button>
+        </div>
+      </article>
+      <article class="element">
+        <img class="element__image" alt="Вид на бухту Балос>" src="./images/balos.jpg">
+        <div class="element__item">
+          <h2 class="element__item-name">Бухта Балос</h2>
+          <button class="element__item-like"></button>
+      </article>
+      <article class="element">
+        <img class="element__image" alt="Внутри Диктейской пещеры" src="./images/cave.jpg">
+        <div class="element__item">
+          <h2 class="element__item-name">Диктейская пещера</h2>
+          <button class="element__item-like"></button>
+      </article>
+      <article class="element">
+        <img class="element__image" alt="Берег пляжа Матала" src="./images/matala.jpg">
+        <div class="element__item">
+          <h2 class="element__item-name">Пляж Матала</h2>
+          <button class="element__item-like"></button>
+      </article>
+      <article class="element">
+        <img class="element__image" alt="Вид на озеро Курна" src="./images/kurna.jpg">
+        <div class="element__item">
+          <h2 class="element__item-name">Озеро Курна</h2>
+          <button class="element__item-like"></button>
+      </article>
+      <article class="element">
+        <img class="element__image" alt="Здание монастыря Аркади" src="./images/arkadi.jpg">
+        <div class="element__item">
+          <h2 class="element__item-name">Монастырь Аркади</h2>
+          <button class="element__item-like"></button>
+      </article>
+    </section>
+  </main>
 
-    <footer class="footer">
-      <p class="footer__copyright">© 2020 Mesto Russia</p>
-    </footer>
-  </body>
+  <footer class="footer">
+    <p class="footer__copyright">© 2020 Mesto Russia</p>
+  </footer>
+
+  <section class="popup">
+    <form class="popup__container">
+      <button class="popup__close"></button>
+      <div class="popup__content">
+        <h3 class="popup__content-title">Редактировать профиль</h3>
+        <input class="popup__content-name">
+        <input class="popup__content-job">
+        <button class="popup__content-submit">Сохранить</button>
+      </div>
+    </form>
+  </section>
+  <script src="./scripts/index.js"></script>
+</body>
+
 </html>
