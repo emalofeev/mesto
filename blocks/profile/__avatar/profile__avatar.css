@@ -2,6 +2,7 @@
     margin-right: 30px;
     height: 120px;
     width: 120px;
+    object-fit: cover;
 }
 
 @media screen and (max-width: 768px) {
