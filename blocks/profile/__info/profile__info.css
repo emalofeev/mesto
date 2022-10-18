@@ -6,6 +6,7 @@
     overflow: hidden;
     max-width: 336px;
     width: 100%;
+    margin-right: 18px;
 }
 
 @media screen and (max-width: 768px) {
@@ -13,5 +14,6 @@
         padding-top: 26px;
         align-items: center;
         max-width: 320px;
+        margin: 0;
         } 
         }
