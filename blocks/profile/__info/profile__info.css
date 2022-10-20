@@ -10,11 +10,11 @@
 }
 
 @media screen and (max-width: 768px) {
-    .profile__info {
-        width: 263px;
-        padding: 26px 38px 0 19px;
-        align-items: center;
-        max-width: 320px;
-        margin: 0;
-        } 
-        }
+.profile__info {
+    width: 263px;
+    padding: 26px 38px 0 19px;
+    align-items: center;
+    max-width: 320px;
+    margin: 0;
+    } 
+    }
