@@ -76,15 +76,16 @@
   </footer>
 
   <section class="popup">
-    <form class="popup__container">
+    <div class="popup__container">
       <button class="popup__close" type="button"></button>
-      <div class="popup__content">
-        <h3 class="popup__content-title">Редактировать профиль</h3>
-        <input class="popup__content-name" type="text" value="">
-        <input class="popup__content-job" type="text" value="">
+      <h3 class="popup__content-title">Редактировать профиль</h3>
+      <form class="popup__content" name="edit-profile">
+        <input class="popup__input popup__input_type_name" name="profile-name" type="text" value="">
+        <input class="popup__input popup__input_type_job" name="profile-job" type="text" value="">
         <button class="popup__content-submit" type="submit">Сохранить</button>
-      </div>
-    </form>
+      </form>
+
+    </div>
   </section>
   <script src="./scripts/index.js"></script>
 </body>
