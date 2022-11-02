@@ -98,11 +98,12 @@ popupCardCloseButtonElement.addEventListener('click', doPopupCardUnvisibility);
 
 
 
-const popupContentSubmit = document.querySelector('.popup__content-submit_card');
-const nameCardInput = document.querySelector('.popup__input_type_nameCard');
-const linkCardInput = document.querySelector('.popup__input_type_linkCard');
+let formCardElement = document.querySelector('.popup__content_type_card'); 
+let nameCardInput = document.querySelector('.popup__input_type_nameCard');
+let linkCardInput = document.querySelector('.popup__input_type_linkCard');
 
-function addCard() {
+function addCard(evt) {
+    evt.preventDefault(); 
     let cardTemplate = document.querySelector('#element-template').content;
     let cardElement = cardTemplate.querySelector('.element').cloneNode(true);
 
@@ -113,6 +114,4 @@ function addCard() {
     cardsContainer.prepend(cardElement);
   }
 
-  popupContentSubmit.addEventListener('click', addCard);
-
-  
+  formCardElement.addEventListener('submit', addCard);
