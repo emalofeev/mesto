@@ -62,6 +62,7 @@ const initialCards = [
   const createCardHtml = (item) => {
   return `
     <article class="element">
+        <button class="element__delete" type="button"></button>
         <img class="element__image" alt="${item.name}" src="${item.link}">
         <div class="element__item">
             <h2 class="element__item-name">${item.name}</h2>
@@ -70,12 +71,10 @@ const initialCards = [
     </article>
   `
 }
-
     initialCards.forEach((item) => {
     const elString = createCardHtml(item);
     cardsContainer.insertAdjacentHTML('afterbegin', elString);
 });
-
 
 
 
@@ -110,8 +109,26 @@ function addCard(evt) {
     cardElement.querySelector('.element__item-name').textContent = nameCardInput.value;
     cardElement.querySelector('.element__image').src = linkCardInput.value;
     cardElement.querySelector('.element__image').alt = nameCardInput.value;
- 
+    
     cardsContainer.prepend(cardElement);
   }
 
   formCardElement.addEventListener('submit', addCard);
+
+
+
+
+document.querySelectorAll('.element__item-like').forEach((element) => {
+  element.addEventListener('click', function () {
+  element.classList.toggle('element__item-like_active'); 
+  });
+});
+
+
+
+document.querySelectorAll('.element').forEach((element) => {
+  element.addEventListener('click', function () {
+  element.remove(); 
+  });
+});
+
