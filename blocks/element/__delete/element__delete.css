@@ -2,9 +2,8 @@
     position: absolute;
     background-image: url(../../../images/trash.svg);
     background-color: transparent;
-    max-width: 18px;
+    width: 18px;
     height: 19px;
-    width: 100%;
     background-size: cover;
     border: 0;
     padding: 0;

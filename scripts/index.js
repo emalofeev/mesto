@@ -29,8 +29,7 @@ popupProfileCloseButtonElement.addEventListener('click', doPopupUnvisibility);
 formElement.addEventListener('submit', formSubmitHandler);
 
 
-
-
+  // добавление исходных карточек
 const initialCards = [
     {
       name: 'Архыз',
@@ -77,11 +76,10 @@ const initialCards = [
 });
 
 
-
-
+ // открытие и закрытие попапа карточек
 const popupCardElement = document.querySelector('.popup_type_card');
 const popupCardOpenButtonElement = document.querySelector('.profile__button');
-const popupCardCloseButtonElement = document.querySelector('.popup__close_type_card');
+const popupCardCloseButtonElement = popupCardElement.querySelector('.popup__close');
 
 function doPopupCardVisibility () {
     popupCardElement.classList.add('popup_opened');
@@ -95,71 +93,15 @@ popupCardOpenButtonElement.addEventListener('click', doPopupCardVisibility);
 popupCardCloseButtonElement.addEventListener('click', doPopupCardUnvisibility);
 
 
-
-
-let formCardElement = document.querySelector('.popup__content_type_card'); 
-let nameCardInput = document.querySelector('.popup__input_type_nameCard');
-let linkCardInput = document.querySelector('.popup__input_type_linkCard');
-
-function addCard(evt) {
-    evt.preventDefault(); 
-    let cardTemplate = document.querySelector('#element-template').content;
-    let cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-
-    cardElement.querySelector('.element__item-name').textContent = nameCardInput.value;
-    cardElement.querySelector('.element__image').src = linkCardInput.value;
-    cardElement.querySelector('.element__image').alt = nameCardInput.value;
-    
-    cardElement.querySelector('.element__item-like').addEventListener("click", function (event) {
-      event.target.classList.toggle("element__item-like_active");
-    });
-
-    cardElement.querySelector('.element__delete').addEventListener("click", function (event) {
-      const target = event.target;
-      const сurrentElement = target.closest(".element");
-      сurrentElement.remove();
-    });
-
-
-
-    cardElement.querySelector('.element__image').addEventListener("click", function (event) {
-      const target = event.target;
-      const сurrentImage = target.closest(".element__image");
-  
-      const popupWindow = document.querySelector('.popup_type_image');
-      popupWindow.classList.add('popup_opened');
-  
-      const windowSrc = popupWindow.querySelector('.popup__image');
-      const windowTitle = popupWindow.querySelector('.popup__image-title');
-      const imagelTitle = document.querySelector('.element__item-name');
-  
-      windowSrc.src = сurrentImage.src;
-      windowTitle.textContent = imagelTitle.textContent; 
-      
-      const popupImageCloseButtonElement = popupWindow.querySelector('.popup__close');
-      popupImageCloseButtonElement.addEventListener('click', doPopupImageUnvisibility);
-      function doPopupImageUnvisibility () {
-      popupWindow.classList.remove('popup_opened');}
-    });
-
-
-    initialCards.unshift({name: nameCardInput.value, link: linkCardInput.value});
-    cardsContainer.prepend(cardElement);
-    doPopupCardUnvisibility ();
-  }
-
-formCardElement.addEventListener('submit', addCard);
-
-
-
-document.querySelectorAll('.element__item-like').forEach((element) => {
+ // лайки к исходным каторчкам
+ document.querySelectorAll('.element__item-like').forEach((element) => {
   element.addEventListener('click', function () {
   element.classList.toggle('element__item-like_active'); 
   });
 });
 
 
-
+ // удаление исходных карточек
 document.querySelectorAll('.element__delete').forEach((element) => {
   element.addEventListener('click', function (event) {
     const target = event.target;
@@ -169,7 +111,7 @@ document.querySelectorAll('.element__delete').forEach((element) => {
 });
 
 
-
+ // открытие исходных карточек в попап-окне
 document.querySelectorAll('.element__image').forEach((element) => {
   element.addEventListener('click', function (event) {
     const target = event.target;
@@ -193,4 +135,54 @@ document.querySelectorAll('.element__image').forEach((element) => {
 });
 
 
+ // добавление карточек, слушателей и функций к ним
+let formCardElement = document.querySelector('.popup__content_type_card'); 
+let nameCardInput = document.querySelector('.popup__input_type_nameCard');
+let linkCardInput = document.querySelector('.popup__input_type_linkCard');
 
+function addCard(evt) {
+    evt.preventDefault(); 
+    let cardTemplate = document.querySelector('#element-template').content;
+    let cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+
+    cardElement.querySelector('.element__item-name').textContent = nameCardInput.value;
+    cardElement.querySelector('.element__image').src = linkCardInput.value;
+    cardElement.querySelector('.element__image').alt = nameCardInput.value;
+    
+    cardElement.querySelector('.element__item-like').addEventListener("click", function (event) {
+      event.target.classList.toggle("element__item-like_active");
+    });
+
+    cardElement.querySelector('.element__delete').addEventListener("click", function (event) {
+      const target = event.target;
+      const сurrentElement = target.closest(".element");
+      сurrentElement.remove();
+    });
+
+    cardElement.querySelector('.element__image').addEventListener("click", function (event) {
+      const target = event.target;
+      const сurrentImage = target.closest(".element__image");
+  
+      const popupWindow = document.querySelector('.popup_type_image');
+      popupWindow.classList.add('popup_opened');
+  
+      const windowSrc = popupWindow.querySelector('.popup__image');
+      const windowTitle = popupWindow.querySelector('.popup__image-title');
+      const imagelTitle = document.querySelector('.element__item-name');
+  
+      windowSrc.src = сurrentImage.src;
+      windowTitle.textContent = imagelTitle.textContent; 
+      
+      const popupImageCloseButtonElement = popupWindow.querySelector('.popup__close');
+      popupImageCloseButtonElement.addEventListener('click', doPopupImageUnvisibility);
+      function doPopupImageUnvisibility () {
+      popupWindow.classList.remove('popup_opened');}
+    });
+
+    initialCards.unshift({name: nameCardInput.value, link: linkCardInput.value});
+    cardsContainer.prepend(cardElement);
+    doPopupCardUnvisibility ();
+    evt.target.reset();
+  }
+
+formCardElement.addEventListener('submit', addCard);
