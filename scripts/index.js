@@ -110,13 +110,22 @@ function addCard(evt) {
     cardElement.querySelector('.element__image').src = linkCardInput.value;
     cardElement.querySelector('.element__image').alt = nameCardInput.value;
     
+    cardElement.querySelector('.element__item-like').addEventListener("click", function (event) {
+      event.target.classList.toggle("element__item-like_active");
+    });
+
+    cardElement.querySelector('.element__delete').addEventListener("click", function (event) {
+      const target = event.target;
+      const сurrentElement = target.closest(".element");
+      сurrentElement.remove();
+    });
+
+    initialCards.unshift({name: nameCardInput.value, link: linkCardInput.value});
     cardsContainer.prepend(cardElement);
+    doPopupCardUnvisibility ();
   }
 
-  formCardElement.addEventListener('submit', addCard);
-
-
-
+formCardElement.addEventListener('submit', addCard);
 
 document.querySelectorAll('.element__item-like').forEach((element) => {
   element.addEventListener('click', function () {
@@ -125,10 +134,10 @@ document.querySelectorAll('.element__item-like').forEach((element) => {
 });
 
 
-
-document.querySelectorAll('.element').forEach((element) => {
-  element.addEventListener('click', function () {
-  element.remove(); 
+document.querySelectorAll('.element__delete').forEach((element) => {
+  element.addEventListener('click', function (event) {
+    const target = event.target;
+    const сurrentElement = target.closest(".element");
+    сurrentElement.remove();
   });
 });
-
