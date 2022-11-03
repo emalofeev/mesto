@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="./pages/index.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mesto</title>
+  <script defer src="./scripts/index.js"></script>
 </head>
 
 <body class="page">
@@ -18,11 +19,11 @@
       <div class="profile__info">
         <div class="profile__edit">
           <h1 class="profile__edit-title">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button" type="button"></button>
+          <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
         </div>
         <p class="profile__info-subtitle">Исследователь океана</p>
       </div>
-      <button class="profile__button" type="button"></button>
+      <button class="profile__button" type="button" aria-label="Добавить карточку с фотографией"></button>
     </section>
     <section class="elements">
 
@@ -34,11 +35,11 @@
 
   <section class="popup popup_type_profile">
     <div class="popup__container">
-      <button class="popup__close" type="button"></button>
+      <button class="popup__close" type="button" aria-label="Закрыть окно редактирования профиля"></button>
       <h3 class="popup__content-title">Редактировать профиль</h3>
       <form class="popup__content popup__content_type_profile" name="edit-profile">
-        <input class="popup__input popup__input_type_name" name="profile-name" type="text">
-        <input class="popup__input popup__input_type_job" name="profile-job" type="text">
+        <input class="popup__input popup__input_type_name" name="profile-name" type="text" placeholder="Имя">
+        <input class="popup__input popup__input_type_job" name="profile-job" type="text" placeholder="О себе">
         <button class="popup__content-submit" type="submit">Сохранить</button>
       </form>
     </div>
@@ -46,11 +47,13 @@
 
   <section class="popup popup_type_card">
     <div class="popup__container">
-      <button class="popup__close" type="button"></button>
+      <button class="popup__close" type="button" aria-label="Закрыть окно добавления фотографии"></button>
       <h3 class="popup__content-title">Новое место</h3>
-      <form class="popup__content popup__content_type_card" name="">
-        <input class="popup__input popup__input_type_nameCard" placeholder="Название" name="" type="text">
-        <input class="popup__input popup__input_type_linkCard" placeholder="Ссылка на картинку" name="" type="url">
+      <form class="popup__content popup__content_type_card" name="edit-card">
+        <input class="popup__input popup__input_type_nameCard" placeholder="Название" name="card-name" type="text"
+          required>
+        <input class="popup__input popup__input_type_linkCard" placeholder="Ссылка на картинку" name="card-link"
+          type="url" required>
         <button class="popup__content-submit" type="submit">Создать</button>
       </form>
     </div>
@@ -58,7 +61,7 @@
 
   <section class="popup popup_type_image">
     <div class="popup__container-image">
-      <button class="popup__close" type="button"></button>
+      <button class="popup__close" type="button" aria-label="Закрыть окно с фотографией"></button>
       <img class="popup__image" alt="" src="#">
       <h3 class="popup__image-title"></h3>
     </div>
@@ -66,16 +69,15 @@
 
   <template id='element-template'>
     <article class="element">
-      <button class="element__delete" type="button"></button>
+      <button class="element__delete" type="button" aria-label="Удалить фотографию"></button>
       <img class="element__image" alt="" src="#">
       <div class="element__item">
         <h2 class="element__item-name"></h2>
-        <button class="element__item-like" type="button"></button>
+        <button class="element__item-like" type="button" aria-label="Лайкнуть"></button>
       </div>
     </article>
   </template>
 
-  <script src="./scripts/index.js"></script>
 </body>
 
 </html>
