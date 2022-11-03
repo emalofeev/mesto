@@ -122,10 +122,10 @@ document.querySelectorAll('.element__image').forEach((element) => {
 
     const windowSrc = popupWindow.querySelector('.popup__image');
     const windowTitle = popupWindow.querySelector('.popup__image-title');
-    const imagelTitle = document.querySelector('.element__item-name');
-
+    
     windowSrc.src = сurrentImage.src;
-    windowTitle.textContent = imagelTitle.textContent; 
+    windowSrc.alt = сurrentImage.alt;
+    windowTitle.textContent = сurrentImage.alt; 
     
     const popupImageCloseButtonElement = popupWindow.querySelector('.popup__close');
     popupImageCloseButtonElement.addEventListener('click', doPopupImageUnvisibility);
@@ -168,10 +168,10 @@ function addCard(evt) {
   
       const windowSrc = popupWindow.querySelector('.popup__image');
       const windowTitle = popupWindow.querySelector('.popup__image-title');
-      const imagelTitle = document.querySelector('.element__item-name');
-  
+      
       windowSrc.src = сurrentImage.src;
-      windowTitle.textContent = imagelTitle.textContent; 
+      windowSrc.alt = сurrentImage.alt;
+      windowTitle.textContent = сurrentImage.alt; 
       
       const popupImageCloseButtonElement = popupWindow.querySelector('.popup__close');
       popupImageCloseButtonElement.addEventListener('click', doPopupImageUnvisibility);
