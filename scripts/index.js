@@ -65,32 +65,31 @@ function doPopupCardUnvisibility() {
 function createCard(item) {
   const cardTemplate = document.querySelector("#element-template").content;
   const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
+  const cardElementLike = cardElement.querySelector(".element__item-like");
+  const cardElementDelete = cardElement.querySelector(".element__delete");
+  const cardElementImage = cardElement.querySelector(".element__image");
 
   cardElement.querySelector(".element__item-name").textContent = item.name;
   cardElement.querySelector(".element__image").src = item.link;
   cardElement.querySelector(".element__image").alt = item.name;
 
-  const cardElementLike = cardElement.querySelector(".element__item-like");
   cardElementLike.addEventListener("click", function () {
     cardElementLike.classList.toggle("element__item-like_active");
   });
 
-  const cardElementDelete = cardElement.querySelector(".element__delete");
   cardElementDelete.addEventListener("click", function (event) {
     const target = event.target;
     const сurrentElement = target.closest(".element");
     сurrentElement.remove();
   });
 
-  const cardElementImage = cardElement.querySelector(".element__image");
   cardElementImage.addEventListener("click", function (event) {
     const target = event.target;
     const сurrentImage = target.closest(".element__image");
-
-    openPopup(popupImage);
-
     const imageSrc = popupImage.querySelector(".popup__image");
     const imageTitle = popupImage.querySelector(".popup__image-title");
+
+    openPopup(popupImage);
 
     imageSrc.src = сurrentImage.src;
     imageSrc.alt = сurrentImage.alt;
@@ -104,8 +103,8 @@ function formSubmitCard(evt) {
   evt.preventDefault();
 
   const cardData = { name: nameCardInput.value, link: linkCardInput.value };
-
   const newCard = createCard(cardData);
+  
   cardsContainer.prepend(newCard);
 
   doPopupCardUnvisibility();
