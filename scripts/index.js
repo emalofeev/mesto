@@ -104,7 +104,7 @@ function formSubmitCard(evt) {
 
   const cardData = { name: nameCardInput.value, link: linkCardInput.value };
   const newCard = createCard(cardData);
-  
+
   cardsContainer.prepend(newCard);
 
   doPopupCardUnvisibility();
