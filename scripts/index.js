@@ -2,7 +2,7 @@ const popupProfileElement = document.querySelector(".popup_type_profile");
 const popupProfileOpenButtonElement = document.querySelector(
   ".profile__edit-button"
 );
-const popupProfileCloseButtonElement = document.querySelector(".popup__close");
+const popupProfileCloseButtonElement = popupProfileElement.querySelector(".popup__close");
 const formProfile = document.querySelector(".popup__content_type_profile");
 const nameInput = formProfile.querySelector(".popup__input_type_name");
 const jobInput = formProfile.querySelector(".popup__input_type_job");
@@ -44,6 +44,16 @@ popupProfileCloseButtonElement.addEventListener(
 );
 formProfile.addEventListener("submit", formSubmitProfile);
 
+const popupImage = document.querySelector(".popup_type_image");
+const popupImageCloseButtonElement = popupImage.querySelector(".popup__close");
+function doPopupImageUnvisibility() {
+  closePopup(popupImage);
+}
+popupImageCloseButtonElement.addEventListener(
+  "click",
+  doPopupImageUnvisibility
+);
+
 // открытие и закрытие попапа карточек
 const popupCardElement = document.querySelector(".popup_type_card");
 const popupCardOpenButtonElement = document.querySelector(".profile__button");
@@ -72,46 +82,31 @@ function createCard(item) {
   cardElement.querySelector(".element__image").src = item.link;
   cardElement.querySelector(".element__image").alt = item.name;
 
-  cardElement.querySelectorAll(".element__item-like").forEach((element) => {
-    element.addEventListener("click", function () {
-      element.classList.toggle("element__item-like_active");
-    });
+  const cardElementLike = cardElement.querySelector(".element__item-like");
+  cardElementLike.addEventListener("click", function () {
+    cardElementLike.classList.toggle("element__item-like_active");
   });
 
-  cardElement.querySelectorAll(".element__delete").forEach((element) => {
-    element.addEventListener("click", function (event) {
-      const target = event.target;
-      const сurrentElement = target.closest(".element");
-      сurrentElement.remove();
-    });
+  const cardElementDelete = cardElement.querySelector(".element__delete");
+  cardElementDelete.addEventListener("click", function (event) {
+    const target = event.target;
+    const сurrentElement = target.closest(".element");
+    сurrentElement.remove();
   });
 
-  cardElement.querySelectorAll(".element__image").forEach((element) => {
-    element.addEventListener("click", function (event) {
-      const target = event.target;
-      const сurrentImage = target.closest(".element__image");
+  const cardElementImage = cardElement.querySelector(".element__image");
+  cardElementImage.addEventListener("click", function (event) {
+    const target = event.target;
+    const сurrentImage = target.closest(".element__image");
 
-      const popupWindow = document.querySelector(".popup_type_image");
-      openPopup(popupWindow);
+    openPopup(popupImage);
 
-      const windowSrc = popupWindow.querySelector(".popup__image");
-      const windowTitle = popupWindow.querySelector(".popup__image-title");
+    const imageSrc = popupImage.querySelector(".popup__image");
+    const imageTitle = popupImage.querySelector(".popup__image-title");
 
-      windowSrc.src = сurrentImage.src;
-      windowSrc.alt = сurrentImage.alt;
-      windowTitle.textContent = сurrentImage.alt;
-
-      const popupImageCloseButtonElement =
-        popupWindow.querySelector(".popup__close");
-      popupImageCloseButtonElement.addEventListener(
-        "click",
-        doPopupImageUnvisibility
-      );
-
-      function doPopupImageUnvisibility() {
-        closePopup(popupWindow);
-      }
-    });
+    imageSrc.src = сurrentImage.src;
+    imageSrc.alt = сurrentImage.alt;
+    imageTitle.textContent = сurrentImage.alt;
   });
 
   return cardElement;
@@ -130,11 +125,9 @@ const linkCardInput = document.querySelector(".popup__input_type_linkCard");
 function formSubmitCard(evt) {
   evt.preventDefault();
 
-  const card = {};
-  card.name = nameCardInput.value;
-  card.link = linkCardInput.value;
+  const cardData = { name: nameCardInput.value, link: linkCardInput.value };
 
-  const newCard = createCard(card);
+  const newCard = createCard(cardData);
   cardsContainer.prepend(newCard);
 
   doPopupCardUnvisibility();
