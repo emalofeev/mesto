@@ -27,10 +27,28 @@ initialCards.forEach((item) => {
 
 function openPopup(popupType) {
   popupType.classList.add("popup_opened");
+  document.addEventListener("click", closePopupOverlay);
+  document.addEventListener("keydown", closePopupEsc);
 }
 
 function closePopup(popupType) {
   popupType.classList.remove("popup_opened");
+  document.removeEventListener("click", closePopupOverlay);
+  document.removeEventListener("keydown", closePopupEsc);
+}
+
+function closePopupOverlay(evt) {
+  const openedPopup = document.querySelector(".popup_opened");
+  if (openedPopup && evt.target === openedPopup) {
+    closePopup(openedPopup);
+  }
+}
+
+function closePopupEsc(evt) {
+  const openedPopup = document.querySelector(".popup_opened");
+  if (openedPopup && evt.key === "Escape") {
+    closePopup(openedPopup);
+  }
 }
 
 function doPopupProfileVisibility() {
