@@ -138,3 +138,6 @@ popupImageCloseButton.addEventListener("click", doPopupImageUnvisibility);
 popupCardOpenButton.addEventListener("click", doPopupCardVisibility);
 popupCardCloseButton.addEventListener("click", doPopupCardUnvisibility);
 formCard.addEventListener("submit", formSubmitCard);
+
+
+
