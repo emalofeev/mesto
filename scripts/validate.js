@@ -24,17 +24,17 @@ const hideInputTypeError = (errorElement) => {
 
 // функция изменения внешнего вида кнопки сабмит
 
-const toggleButtonSubmit = (inputList, submitButtonSubmit) => {
+const toggleButtonSubmit = (inputList, handleButtonSubmit) => {
   const hasInvalidInput = inputList.some(
     (inputElement) => !inputElement.validity.valid
   );
 
   if (hasInvalidInput) {
-    submitButtonSubmit.setAttribute("disable", true);
-    submitButtonSubmit.classList.add(listValidation.inactiveButtonClass);
+    handleButtonSubmit.setAttribute("disable", true);
+    handleButtonSubmit.classList.add(listValidation.inactiveButtonClass);
   } else {
-    submitButtonSubmit.removeAttribute("disable");
-    submitButtonSubmit.classList.remove(listValidation.inactiveButtonClass);
+    handleButtonSubmit.removeAttribute("disable");
+    handleButtonSubmit.classList.remove(listValidation.inactiveButtonClass);
   }
 };
 
@@ -48,30 +48,21 @@ const setEventListeners = (formElement, listValidation) => {
   const inputList = Array.from(
     formElement.querySelectorAll(listValidation.inputSelector)
   );
-  const submitButtonSubmit = formElement.querySelector(
+  const handleButtonSubmit = formElement.querySelector(
     listValidation.submitButtonSelector
   );
 
-  toggleButtonSubmit(inputList, submitButtonSubmit);
+  toggleButtonSubmit(inputList, handleButtonSubmit);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       checkInputValidity(inputElement);
-      toggleButtonSubmit(inputList, submitButtonSubmit);
+      toggleButtonSubmit(inputList, handleButtonSubmit);
     });
   });
 };
 
 // включение валидации вызовом enableValidation
-
-const listValidation = {
-  formSelector: ".popup__content",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__content-submit",
-  inactiveButtonClass: "popup__content-submit_inative",
-  inputErrorClass: ".popup__input-error",
-  errorClass: "popup__input-error_active",
-};
 
 const enableValidation = (listValidation) => {
   const formList = document.querySelectorAll(listValidation.formSelector);
@@ -82,3 +73,10 @@ const enableValidation = (listValidation) => {
 };
 
 enableValidation(listValidation);
+
+// сделать кнопку создания карточки неактивной после добавления карточки
+
+const disableButtonSubmit = () => {
+  buttonSubmitCard.setAttribute("disable", true);
+  buttonSubmitCard.classList.add(listValidation.inactiveButtonClass);
+};

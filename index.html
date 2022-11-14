@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="./pages/index.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mesto</title>
-  <script defer src="./scripts/cards.js"></script>
+  <script defer src="./scripts/data.js"></script>
   <script defer src="./scripts/index.js"></script>
   <script defer src="./scripts/validate.js"></script>
 </head>
@@ -35,7 +35,7 @@
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
 
-  <section class="popup popup_type_profile">
+  <div class="popup popup_type_profile">
     <div class="popup__container">
       <button class="popup__close" type="button" aria-label="Закрыть окно редактирования профиля"></button>
       <h3 class="popup__content-title">Редактировать профиль</h3>
@@ -53,9 +53,9 @@
         <button class="popup__content-submit" type="submit">Сохранить</button>
       </form>
     </div>
-  </section>
+  </div>
 
-  <section class="popup popup_type_card">
+  <div class="popup popup_type_card">
     <div class="popup__container">
       <button class="popup__close" type="button" aria-label="Закрыть окно добавления фотографии"></button>
       <h3 class="popup__content-title">Новое место</h3>
@@ -73,15 +73,15 @@
         <button class="popup__content-submit" type="submit">Создать</button>
       </form>
     </div>
-  </section>
+  </div>
 
-  <section class="popup popup_type_image">
+  <div class="popup popup_type_image">
     <div class="popup__container-image">
       <button class="popup__close" type="button" aria-label="Закрыть окно с фотографией"></button>
       <img class="popup__image" alt="" src="#">
       <h3 class="popup__image-title"></h3>
     </div>
-  </section>
+  </div>
 
   <template id='element-template' class='element-template'>
     <article class="element">
