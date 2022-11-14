@@ -39,14 +39,15 @@
     <div class="popup__container">
       <button class="popup__close" type="button" aria-label="Закрыть окно редактирования профиля"></button>
       <h3 class="popup__content-title">Редактировать профиль</h3>
-      <form class="popup__content popup__content_type_profile" name="edit-profile">
+      <form class="popup__content popup__content_type_profile" name="edit-profile" novalidate>
         <div class="popup__item">
-          <input class="popup__input popup__input_type_name" name="profile-name" type="text" placeholder="Имя" required>
+          <input class="popup__input popup__input_type_name" name="profile-name" type="text" placeholder="Имя"
+            minlength="2" maxlength="40" required>
           <span class="popup__input-error popup__input-error-name"></span>
         </div>
         <div class="popup__item">
           <input class="popup__input popup__input_type_job" name="profile-job" type="text" placeholder="О себе"
-            required>
+            minlength="2" maxlength="200" required>
           <span class="popup__input-error popup__input-error-job"></span>
         </div>
         <button class="popup__content-submit" type="submit">Сохранить</button>
@@ -58,10 +59,10 @@
     <div class="popup__container">
       <button class="popup__close" type="button" aria-label="Закрыть окно добавления фотографии"></button>
       <h3 class="popup__content-title">Новое место</h3>
-      <form class="popup__content popup__content_type_card" name="edit-card">
+      <form class="popup__content popup__content_type_card" name="edit-card" novalidate>
         <div class="popup__item">
           <input class="popup__input popup__input_type_nameCard" placeholder="Название" name="card-name" type="text"
-            required>
+            minlength="2" maxlength="30" required>
           <span class="popup__input-error"></span>
         </div>
         <div class="popup__item">

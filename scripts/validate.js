@@ -1,84 +1,84 @@
-// валидация при каждом нажатии клавиши
+// валидация при каждом вводе/удалении символа в форме
 
 const checkInputValidity = (inputElement) => {
   const isValid = inputElement.validity.valid;
   const popupItem = inputElement.closest(".popup__item");
-  const errorEl = popupItem.querySelector(".popup__input-error");
+  const errorElement = popupItem.querySelector(listValidation.inputErrorClass);
 
   if (isValid) {
-    hideInputTypeError(errorEl);
+    hideInputTypeError(errorElement);
   } else {
-    showInputTypeError(errorEl, inputElement.validationMessage);
+    showInputTypeError(errorElement, inputElement.validationMessage);
   }
 };
 
-const showInputTypeError = (errorEl, errorMessage) => {
-  errorEl.textContent = errorMessage;
-  errorEl.classList.add("popup__input-error_active");
+const showInputTypeError = (errorElement, errorMessage) => {
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add(listValidation.errorClass);
 };
 
-const hideInputTypeError = (errorEl) => {
-  errorEl.textContent = "";
-  errorEl.classList.remove("popup__input-error_active");
+const hideInputTypeError = (errorElement) => {
+  errorElement.textContent = "";
+  errorElement.classList.remove(listValidation.errorClass);
 };
 
-// изменение внешнего вида кнопки сабмит
+// функция изменения внешнего вида кнопки сабмит
 
-const toggleButtonProfile = (inputList, submitButtonProfile) => {
-  const hasInvalidInputProfile = inputList.some(
+const toggleButtonSubmit = (inputList, submitButtonSubmit) => {
+  const hasInvalidInput = inputList.some(
     (inputElement) => !inputElement.validity.valid
   );
 
-  if (hasInvalidInputProfile) {
-    submitButtonProfile.setAttribute("disable", true);
-    submitButtonProfile.classList.add(selectors.inactiveButtonClass);
+  if (hasInvalidInput) {
+    submitButtonSubmit.setAttribute("disable", true);
+    submitButtonSubmit.classList.add(listValidation.inactiveButtonClass);
   } else {
-    submitButtonProfile.removeAttribute("disable");
-    submitButtonProfile.classList.remove(selectors.inactiveButtonClass);
+    submitButtonSubmit.removeAttribute("disable");
+    submitButtonSubmit.classList.remove(listValidation.inactiveButtonClass);
   }
 };
 
+// навешивание слушателей
 
-
-const setEventListeners = (formElement, selectors) => {
+const setEventListeners = (formElement, listValidation) => {
   formElement.addEventListener("submit", (event) => {
     event.preventDefault();
   });
 
-  const inputList = Array.from(formElement.querySelectorAll(selectors.inputSelector));
-  const submitButtonProfile = formElement.querySelector(
-    selectors.submitButtonSelector
+  const inputList = Array.from(
+    formElement.querySelectorAll(listValidation.inputSelector)
+  );
+  const submitButtonSubmit = formElement.querySelector(
+    listValidation.submitButtonSelector
   );
 
-  toggleButtonProfile(inputList, submitButtonProfile);
+  toggleButtonSubmit(inputList, submitButtonSubmit);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       checkInputValidity(inputElement);
-      toggleButtonProfile(inputList, submitButtonProfile);
+      toggleButtonSubmit(inputList, submitButtonSubmit);
     });
   });
 };
 
+// включение валидации вызовом enableValidation
 
-// ввод селекторов с валидацией
+const listValidation = {
+  formSelector: ".popup__content",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__content-submit",
+  inactiveButtonClass: "popup__content-submit_inative",
+  inputErrorClass: ".popup__input-error",
+  errorClass: "popup__input-error_active",
+};
 
-const enableValidation = (selectors) => {
+const enableValidation = (listValidation) => {
+  const formList = document.querySelectorAll(listValidation.formSelector);
 
-const formList = document.querySelectorAll(selectors.formSelector);
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, listValidation);
+  });
+};
 
-formList.forEach(formElement => {
-    setEventListeners(formElement, selectors);
-})
-}
-
-const selectors = {
-    formSelector: '.popup__content',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__content-submit',
-    inactiveButtonClass: 'popup__content-submit_inative',
-    inputErrorClass: 'popup__input-error',
-    errorClass: 'popup__input-error_active'
-}
-
-enableValidation(selectors);
+enableValidation(listValidation);
