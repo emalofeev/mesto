@@ -23,7 +23,7 @@
 
 **Ссылка на макет в Figma**
 
-* [Ссылка на макет](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1)
+* [Ссылка на макет](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=0%3A1)
 
 **Cсылка на GitHub Pages**
 
