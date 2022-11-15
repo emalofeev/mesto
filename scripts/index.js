@@ -55,9 +55,9 @@ function closePopupEsc(event) {
 }
 
 function handlePopupProfileVisibility() {
-  openPopup(popupProfile);
   nameProfileInput.value = profileName.textContent;
   jobProfileInput.value = profileJob.textContent;
+  openPopup(popupProfile);
 }
 
 function handlePopupProfileUnvisibility() {
@@ -104,11 +104,11 @@ function createCard(item) {
   });
 
   cardElementImage.addEventListener("click", function () {
-    openPopup(popupImage);
-
     imageSrc.src = cardElementImage.src;
     imageSrc.alt = cardElementImage.alt;
     imageTitle.textContent = cardElementImage.alt;
+
+    openPopup(popupImage);
   });
 
   return cardElement;
@@ -122,11 +122,11 @@ function handleFormSubmitCard(event) {
 
   cardsContainer.prepend(newCard);
 
+  handlePopupCardUnvisibility();
+
   event.target.reset();
 
   disableButtonSubmit();
-
-  handlePopupCardUnvisibility();
 }
 
 popupProfileOpenButton.addEventListener("click", handlePopupProfileVisibility);
@@ -134,6 +134,7 @@ popupProfileCloseButton.addEventListener(
   "click",
   handlePopupProfileUnvisibility
 );
+
 formProfile.addEventListener("submit", handleFormSubmitProfile);
 
 popupImageCloseButton.addEventListener("click", handlePopupImageUnvisibility);
