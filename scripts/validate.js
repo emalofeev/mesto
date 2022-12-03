@@ -1,3 +1,6 @@
+import { buttonSubmitCard } from "./index.js";
+import { listValidation } from "./data.js";
+
 // валидация при каждом вводе/удалении символа в форме
 
 const checkInputValidity = (inputElement) => {
@@ -76,7 +79,7 @@ enableValidation(listValidation);
 
 // сделать кнопку создания карточки неактивной после добавления карточки
 
-const disableButtonSubmit = () => {
+export const disableButtonSubmit = () => {
   buttonSubmitCard.setAttribute("disable", true);
   buttonSubmitCard.classList.add(listValidation.inactiveButtonClass);
 };
