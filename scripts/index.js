@@ -1,6 +1,8 @@
 import Card from "./Card.js";
-import { initialCards } from "./data.js";
-import { disableButtonSubmit } from "./validate.js";
+import FormValidator from './FormValidator.js';
+import { initialCards, listValidation } from "./data.js";
+
+// import { disableButtonSubmit } from "./validate.js";
 
 const cardsContainer = document.querySelector(".elements");
 
@@ -95,6 +97,13 @@ function createCard(item) {
   const card = new Card(item, "#element-template");
   return card.renderCard();
 }
+
+// валидация
+
+const validatorProfile = new FormValidator(listValidation, formProfile);
+const validatorCard = new FormValidator(listValidation, formCard);
+validatorProfile.enableValidation();
+validatorCard.enableValidation();
 
 // function createCard(item) {
 //   const cardTemplate = document.querySelector("#element-template").content;

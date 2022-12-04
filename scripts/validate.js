@@ -1,85 +1,85 @@
-import { buttonSubmitCard } from "./index.js";
-import { listValidation } from "./data.js";
+// import { buttonSubmitCard } from "./index.js";
+// import { listValidation } from "./data.js";
 
-// валидация при каждом вводе/удалении символа в форме
+// // валидация при каждом вводе/удалении символа в форме
 
-const checkInputValidity = (inputElement) => {
-  const isValid = inputElement.validity.valid;
-  const popupItem = inputElement.closest(".popup__item");
-  const errorElement = popupItem.querySelector(listValidation.inputErrorClass);
+// const checkInputValidity = (inputElement) => {
+//   const isValid = inputElement.validity.valid;
+//   const popupItem = inputElement.closest(".popup__item");
+//   const errorElement = popupItem.querySelector(listValidation.inputErrorClass);
 
-  if (isValid) {
-    hideInputTypeError(errorElement);
-  } else {
-    showInputTypeError(errorElement, inputElement.validationMessage);
-  }
-};
+//   if (isValid) {
+//     hideInputTypeError(errorElement);
+//   } else {
+//     showInputTypeError(errorElement, inputElement.validationMessage);
+//   }
+// };
 
-const showInputTypeError = (errorElement, errorMessage) => {
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add(listValidation.errorClass);
-};
+// const showInputTypeError = (errorElement, errorMessage) => {
+//   errorElement.textContent = errorMessage;
+//   errorElement.classList.add(listValidation.errorClass);
+// };
 
-const hideInputTypeError = (errorElement) => {
-  errorElement.textContent = "";
-  errorElement.classList.remove(listValidation.errorClass);
-};
+// const hideInputTypeError = (errorElement) => {
+//   errorElement.textContent = "";
+//   errorElement.classList.remove(listValidation.errorClass);
+// };
 
-// функция изменения внешнего вида кнопки сабмит
+// // функция изменения внешнего вида кнопки сабмит
 
-const toggleButtonSubmit = (inputList, handleButtonSubmit) => {
-  const hasInvalidInput = inputList.some(
-    (inputElement) => !inputElement.validity.valid
-  );
+// const toggleButtonSubmit = (inputList, handleButtonSubmit) => {
+//   const hasInvalidInput = inputList.some(
+//     (inputElement) => !inputElement.validity.valid
+//   );
 
-  if (hasInvalidInput) {
-    handleButtonSubmit.setAttribute("disable", true);
-    handleButtonSubmit.classList.add(listValidation.inactiveButtonClass);
-  } else {
-    handleButtonSubmit.removeAttribute("disable");
-    handleButtonSubmit.classList.remove(listValidation.inactiveButtonClass);
-  }
-};
+//   if (hasInvalidInput) {
+//     handleButtonSubmit.setAttribute("disable", true);
+//     handleButtonSubmit.classList.add(listValidation.inactiveButtonClass);
+//   } else {
+//     handleButtonSubmit.removeAttribute("disable");
+//     handleButtonSubmit.classList.remove(listValidation.inactiveButtonClass);
+//   }
+// };
 
-// навешивание слушателей
+// // навешивание слушателей
 
-const setEventListeners = (formElement, listValidation) => {
-  formElement.addEventListener("submit", (event) => {
-    event.preventDefault();
-  });
+// const setEventListeners = (formElement, listValidation) => {
+//   formElement.addEventListener("submit", (event) => {
+//     event.preventDefault();
+//   });
 
-  const inputList = Array.from(
-    formElement.querySelectorAll(listValidation.inputSelector)
-  );
-  const handleButtonSubmit = formElement.querySelector(
-    listValidation.submitButtonSelector
-  );
+//   const inputList = Array.from(
+//     formElement.querySelectorAll(listValidation.inputSelector)
+//   );
+//   const handleButtonSubmit = formElement.querySelector(
+//     listValidation.submitButtonSelector
+//   );
 
-  toggleButtonSubmit(inputList, handleButtonSubmit);
+//   toggleButtonSubmit(inputList, handleButtonSubmit);
 
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", () => {
-      checkInputValidity(inputElement);
-      toggleButtonSubmit(inputList, handleButtonSubmit);
-    });
-  });
-};
+//   inputList.forEach((inputElement) => {
+//     inputElement.addEventListener("input", () => {
+//       checkInputValidity(inputElement);
+//       toggleButtonSubmit(inputList, handleButtonSubmit);
+//     });
+//   });
+// };
 
-// включение валидации вызовом enableValidation
+// // включение валидации вызовом enableValidation
 
-const enableValidation = (listValidation) => {
-  const formList = document.querySelectorAll(listValidation.formSelector);
+// const enableValidation = (listValidation) => {
+//   const formList = document.querySelectorAll(listValidation.formSelector);
 
-  formList.forEach((formElement) => {
-    setEventListeners(formElement, listValidation);
-  });
-};
+//   formList.forEach((formElement) => {
+//     setEventListeners(formElement, listValidation);
+//   });
+// };
 
-enableValidation(listValidation);
+// enableValidation(listValidation);
 
-// сделать кнопку создания карточки неактивной после добавления карточки
+// // сделать кнопку создания карточки неактивной после добавления карточки
 
-export const disableButtonSubmit = () => {
-  buttonSubmitCard.setAttribute("disable", true);
-  buttonSubmitCard.classList.add(listValidation.inactiveButtonClass);
-};
+// export const disableButtonSubmit = () => {
+//   buttonSubmitCard.setAttribute("disable", true);
+//   buttonSubmitCard.classList.add(listValidation.inactiveButtonClass);
+// };
