@@ -2,12 +2,14 @@ import { popupImage, imageSrc, imageTitle } from "./index.js";
 import { openPopup } from "./index.js";
 
 class Card {
+  // данные карточки и селектор её темплейт элемента
   constructor(data, selectorTemplate) {
     this._name = data.name;
     this._link = data.link;
     this._selectorTemplate = selectorTemplate;
   }
 
+  // метод получения разметки карточки
   _getTemplate() {
     const cardElement = document
       .querySelector(this._selectorTemplate)
@@ -16,6 +18,7 @@ class Card {
     this._element = cardElement;
   }
 
+  // приватные методы по работе с карточкой
   _handleCardLike() {
     this._element
       .querySelector(".element__item-like")
@@ -33,6 +36,7 @@ class Card {
     openPopup(popupImage);
   }
 
+  // приватный метод установки слушателей событий
   _addEventListenerElement() {
     this._element
       .querySelector(".element__item-like")
@@ -53,6 +57,7 @@ class Card {
       });
   }
 
+  // публичный метод для возвращения карточки
   renderCard() {
     this._getTemplate();
     this._addEventListenerElement();
@@ -66,3 +71,4 @@ class Card {
 }
 
 export default Card;
+

@@ -4,7 +4,6 @@
 
 * Описание проекта и его функциональности
 * Технологии
-* Ссылка на макет в Figma
 * Cсылка на GitHub Pages
 
 **Описание проекта и его функциональности**
@@ -17,13 +16,10 @@
 * CSS
 * JavaScript
 * БЭМ
+* ООП
 * VS Code
 * Figma
 * Github
-
-**Ссылка на макет в Figma**
-
-* [Ссылка на макет](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=0%3A1)
 
 **Cсылка на GitHub Pages**
 

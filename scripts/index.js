@@ -1,8 +1,6 @@
 import Card from "./Card.js";
-import FormValidator from './FormValidator.js';
+import FormValidator from "./FormValidator.js";
 import { initialCards, listValidation } from "./data.js";
-
-// import { disableButtonSubmit } from "./validate.js";
 
 const cardsContainer = document.querySelector(".elements");
 
@@ -27,9 +25,6 @@ const popupCardCloseButton = popupCard.querySelector(".popup__close");
 const formCard = document.querySelector(".popup__content_type_card");
 const nameCardInput = formCard.querySelector(".popup__input_type_nameCard");
 const linkCardInput = formCard.querySelector(".popup__input_type_linkCard");
-export const buttonSubmitCard = formCard.querySelector(
-  ".popup__content-submit"
-);
 
 initialCards.forEach((item) => {
   const newCard = createCard(item);
@@ -66,6 +61,12 @@ function handlePopupProfileVisibility() {
   nameProfileInput.value = profileName.textContent;
   jobProfileInput.value = profileJob.textContent;
   openPopup(popupProfile);
+
+  // валидация сабмита после первичного заполнения формы при открытии
+  validatorProfile.toggleButtonSubmit();
+
+  // очистка полей валидации после закрытия редактора профиля без сохранения
+  validatorProfile.hideProfileError();
 }
 
 function handlePopupProfileUnvisibility() {
@@ -92,16 +93,15 @@ function handlePopupCardUnvisibility() {
 }
 
 // добавление карточки через класс
-
 function createCard(item) {
   const card = new Card(item, "#element-template");
   return card.renderCard();
 }
 
-// валидация
-
+// валидация форм профиля и карточки
 const validatorProfile = new FormValidator(listValidation, formProfile);
 const validatorCard = new FormValidator(listValidation, formCard);
+
 validatorProfile.enableValidation();
 validatorCard.enableValidation();
 
@@ -148,7 +148,8 @@ function handleFormSubmitCard(event) {
 
   event.target.reset();
 
-  disableButtonSubmit();
+  // деактивация кнопки сабмит после сохранения
+  validatorCard.toggleButtonSubmit();
 }
 
 popupProfileOpenButton.addEventListener("click", handlePopupProfileVisibility);
