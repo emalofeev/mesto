@@ -1,5 +1,4 @@
-import { popupImage, imageSrc, imageTitle } from "./index.js";
-import { openPopup } from "./index.js";
+import { popupImage, imageSrc, imageTitle, openPopup } from "../utils/utils.js";
 
 class Card {
   // данные карточки и селектор её темплейт элемента
@@ -62,13 +61,13 @@ class Card {
     this._getTemplate();
     this._addEventListenerElement();
 
+    const _elementImage = this._element.querySelector(".element__image");
     this._element.querySelector(".element__item-name").textContent = this._name;
-    this._element.querySelector(".element__image").src = this._link;
-    this._element.querySelector(".element__image").alt = this._name;
+    _elementImage.src = this._link;
+    _elementImage.alt = this._name;
 
     return this._element;
   }
 }
 
 export default Card;
-
