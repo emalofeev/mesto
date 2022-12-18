@@ -3,10 +3,13 @@ import FormValidator from "./FormValidator.js";
 import { initialCards, listValidation } from "./data.js";
 import {
   popupImage,
-  popupImageCloseButton,
-  openPopup,
-  closePopup,
+//  popupImageCloseButton,
+//  openPopup,
+//  closePopup,
 } from "../utils/utils.js";
+
+import Section from "./Section.js";
+import PopupWithImage from "./PopupWithImage.js";
 
 const cardsContainer = document.querySelector(".elements");
 
@@ -27,10 +30,37 @@ const formCard = document.querySelector(".popup__content_type_card");
 const nameCardInput = formCard.querySelector(".popup__input_type_nameCard");
 const linkCardInput = formCard.querySelector(".popup__input_type_linkCard");
 
-initialCards.forEach((item) => {
-  const newCard = createCard(item);
-  cardsContainer.prepend(newCard);
-});
+
+// попап для открытия изображения карточки
+
+const popupWithImage = new PopupWithImage(popupImage);
+
+function handleCardClick (name, link) {
+  popupWithImage.open(name, link);
+}
+
+
+// инициация карточек
+const cardsList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, "#element-template", handleCardClick);
+      return card.renderCard();
+    },
+  },
+  ".elements"
+);
+
+cardsList.renderItems();
+
+// initialCards.forEach((item) => {
+//   const newCard = createCard(item);
+//   cardsContainer.prepend(newCard);
+// });
+
+
+
 
 function handlePopupProfileVisibility() {
   nameProfileInput.value = profileName.textContent;
@@ -55,9 +85,9 @@ function handleFormSubmitProfile(event) {
   closePopup(popupProfile);
 }
 
-function handlePopupImageUnvisibility() {
-  closePopup(popupImage);
-}
+// function handlePopupImageUnvisibility() {
+//   closePopup(popupImage);
+// }
 
 function handlePopupCardVisibility() {
   openPopup(popupCard);
@@ -104,7 +134,7 @@ popupProfileCloseButton.addEventListener(
 
 formProfile.addEventListener("submit", handleFormSubmitProfile);
 
-popupImageCloseButton.addEventListener("click", handlePopupImageUnvisibility);
+// popupImageCloseButton.addEventListener("click", handlePopupImageUnvisibility);
 
 popupCardOpenButton.addEventListener("click", handlePopupCardVisibility);
 popupCardCloseButton.addEventListener("click", handlePopupCardUnvisibility);

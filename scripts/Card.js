@@ -1,11 +1,17 @@
-import { popupImage, imageSrc, imageTitle, openPopup } from "../utils/utils.js";
+// import {
+//   popupImage,
+//   imageSrc,
+//   imageTitle,
+//   //openPopup
+// } from "../utils/utils.js";
 
 class Card {
   // данные карточки и селектор её темплейт элемента
-  constructor(data, selectorTemplate) {
+  constructor(data, selectorTemplate, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._selectorTemplate = selectorTemplate;
+    this._handleCardClick = handleCardClick;
   }
 
   // метод получения разметки карточки
@@ -15,6 +21,7 @@ class Card {
       .content.querySelector(".element")
       .cloneNode(true);
     this._element = cardElement;
+    this._elementImage = this._element.querySelector(".element__image");
   }
 
   // приватные методы по работе с карточкой
@@ -28,12 +35,12 @@ class Card {
     this._element.remove();
   }
 
-  _handleCardImage() {
-    imageSrc.src = this._link;
-    imageSrc.alt = this._name;
-    imageTitle.textContent = this._name;
-    openPopup(popupImage);
-  }
+  // _handleCardImage() {
+  //   imageSrc.src = this._link;
+  //   imageSrc.alt = this._name;
+  //   imageTitle.textContent = this._name;
+  //   openPopup(popupImage);
+  // }
 
   // приватный метод установки слушателей событий
   _addEventListenerElement() {
@@ -49,11 +56,9 @@ class Card {
         this._handleCardDelete();
       });
 
-    this._element
-      .querySelector(".element__image")
-      .addEventListener("click", () => {
-        this._handleCardImage();
-      });
+    this._elementImage.addEventListener("click", () => {
+      this._handleCardClick(this._name, this._link);
+    });
   }
 
   // публичный метод для возвращения карточки
@@ -61,10 +66,9 @@ class Card {
     this._getTemplate();
     this._addEventListenerElement();
 
-    const _elementImage = this._element.querySelector(".element__image");
     this._element.querySelector(".element__item-name").textContent = this._name;
-    _elementImage.src = this._link;
-    _elementImage.alt = this._name;
+    this._elementImage.src = this._link;
+    this._elementImage.alt = this._name;
 
     return this._element;
   }
