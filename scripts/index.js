@@ -3,13 +3,14 @@ import FormValidator from "./FormValidator.js";
 import { initialCards, listValidation } from "./data.js";
 import {
   popupImage,
-//  popupImageCloseButton,
-//  openPopup,
-//  closePopup,
+  //  popupImageCloseButton,
+  //  openPopup,
+  //  closePopup,
 } from "../utils/utils.js";
 
 import Section from "./Section.js";
 import PopupWithImage from "./PopupWithImage.js";
+import PopupWithForm from "./PopupWithForm.js";
 
 const cardsContainer = document.querySelector(".elements");
 
@@ -30,17 +31,15 @@ const formCard = document.querySelector(".popup__content_type_card");
 const nameCardInput = formCard.querySelector(".popup__input_type_nameCard");
 const linkCardInput = formCard.querySelector(".popup__input_type_linkCard");
 
-
 // попап для открытия изображения карточки
 
 const popupWithImage = new PopupWithImage(popupImage);
 
-function handleCardClick (name, link) {
+function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
 
-
-// инициация карточек
+// добавление исходных карточек
 const cardsList = new Section(
   {
     items: initialCards,
@@ -58,6 +57,22 @@ cardsList.renderItems();
 //   const newCard = createCard(item);
 //   cardsContainer.prepend(newCard);
 // });
+
+// добавление новых карточек
+
+const popupWithFormCard = new PopupWithForm(popupCard, () => {
+  const formData = popupWithFormCard.getInputValues();
+  const card = new Card(formData, "#element-template", handleCardClick);
+  const newCard = card.renderCard();
+  cardsList.addItem(newCard);
+  popupWithFormCard.close();
+});
+
+popupWithFormCard.setEventListeners();
+
+popupCardOpenButton.addEventListener("click", () => {
+  popupWithFormCard.open();
+});
 
 
 
@@ -89,19 +104,19 @@ function handleFormSubmitProfile(event) {
 //   closePopup(popupImage);
 // }
 
-function handlePopupCardVisibility() {
-  openPopup(popupCard);
-}
+// function handlePopupCardVisibility() {
+//   openPopup(popupCard);
+// }
 
-function handlePopupCardUnvisibility() {
-  closePopup(popupCard);
-}
+// function handlePopupCardUnvisibility() {
+//   closePopup(popupCard);
+// }
 
 // добавление карточки через класс
-function createCard(item) {
-  const card = new Card(item, "#element-template");
-  return card.renderCard();
-}
+// function createCard(item) {
+//   const card = new Card(item, "#element-template");
+//   return card.renderCard();
+// }
 
 // валидация форм профиля и карточки
 const validatorProfile = new FormValidator(listValidation, formProfile);
@@ -110,21 +125,21 @@ const validatorCard = new FormValidator(listValidation, formCard);
 validatorProfile.enableValidation();
 validatorCard.enableValidation();
 
-function handleFormSubmitCard(event) {
-  event.preventDefault();
+// function handleFormSubmitCard(event) {
+//   event.preventDefault();
 
-  const cardData = { name: nameCardInput.value, link: linkCardInput.value };
-  const newCard = createCard(cardData);
+//   const cardData = { name: nameCardInput.value, link: linkCardInput.value };
+//   const newCard = createCard(cardData);
 
-  cardsContainer.prepend(newCard);
+//   cardsContainer.prepend(newCard);
 
-  handlePopupCardUnvisibility();
+//   handlePopupCardUnvisibility();
 
-  event.target.reset();
+//   event.target.reset();
 
-  // деактивация кнопки сабмит после сохранения
-  validatorCard.toggleButtonSubmit();
-}
+//   // деактивация кнопки сабмит после сохранения
+//   validatorCard.toggleButtonSubmit();
+// }
 
 popupProfileOpenButton.addEventListener("click", handlePopupProfileVisibility);
 popupProfileCloseButton.addEventListener(
@@ -136,6 +151,6 @@ formProfile.addEventListener("submit", handleFormSubmitProfile);
 
 // popupImageCloseButton.addEventListener("click", handlePopupImageUnvisibility);
 
-popupCardOpenButton.addEventListener("click", handlePopupCardVisibility);
-popupCardCloseButton.addEventListener("click", handlePopupCardUnvisibility);
-formCard.addEventListener("submit", handleFormSubmitCard);
+// popupCardOpenButton.addEventListener("click", handlePopupCardVisibility);
+// popupCardCloseButton.addEventListener("click", handlePopupCardUnvisibility);
+// formCard.addEventListener("submit", handleFormSubmitCard);

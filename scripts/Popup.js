@@ -20,7 +20,7 @@ export default class Popup {
   }
 
   setEventListeners() {
-    this._popupCard.addEventListener('mousedown', (event) => {
+    this._popupCard.addEventListener('click', (event) => {
       if (event.target.classList.contains('popup_opened') || event.target.classList.contains('popup__close')) {
         this.close();
       }
