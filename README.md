@@ -18,6 +18,7 @@
 * БЭМ
 * ООП
 * VS Code
+* Webpack
 * Figma
 * Github
 
