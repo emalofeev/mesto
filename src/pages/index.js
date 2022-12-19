@@ -18,7 +18,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import './index.css';
+import "./index.css";
 
 // добавление исходных данных пользователя
 const userInfo = new UserInfo({
@@ -36,41 +36,48 @@ const popupWithFormUser = new PopupWithForm(popupProfile, () => {
 popupWithFormUser.setEventListeners();
 
 // добавление новых данных пользователя
-popupProfileOpenButton.addEventListener("click", () => {
+popupProfileOpenButton.addEventListener("click", setUserInfo);
+
+function setUserInfo() {
   const dataUserInput = userInfo.getUserInfo();
   nameProfileInput.value = dataUserInput.name;
   jobProfileInput.value = dataUserInput.job;
   validatorProfile.hideError();
   popupWithFormUser.open();
-});
+}
 
 // добавление исходных карточек
-const cardsList = new Section(
+function handleCardClick(name, link) {
+  popupWithImage.open(name, link);
+}
+
+function createCard(item) {
+  const card = new Card(item, "#element-template", handleCardClick);
+  return card.renderCard();
+}
+
+const cardsSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item, "#element-template", handleCardClick);
-      return card.renderCard();
+      cardsSection.addItem(createCard(item));
     },
   },
   ".elements"
 );
 
-cardsList.renderItems();
+cardsSection.renderItems();
 
 // добавление новых карточек
 const popupWithFormCard = new PopupWithForm(popupCard, () => {
   const dataCard = popupWithFormCard.getValues();
-  const card = new Card(dataCard, "#element-template", handleCardClick);
-  const newCard = card.renderCard();
-  cardsList.addItem(newCard);
+  cardsSection.addItem(createCard(dataCard));
   popupWithFormCard.close();
 });
 
 popupWithFormCard.setEventListeners();
 
 popupCardOpenButton.addEventListener("click", () => {
-  validatorCard.enableValidation();
   validatorCard.hideError();
   popupWithFormCard.open();
 });
@@ -78,10 +85,9 @@ popupCardOpenButton.addEventListener("click", () => {
 // попап для открытия изображения карточки
 const popupWithImage = new PopupWithImage(popupImage);
 
-function handleCardClick(name, link) {
-  popupWithImage.open(name, link);
-}
-
 // валидация форм профиля и карточки
 const validatorProfile = new FormValidator(listValidation, formProfile);
 const validatorCard = new FormValidator(listValidation, formCard);
+
+validatorProfile.enableValidation();
+validatorCard.enableValidation();
