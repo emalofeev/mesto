@@ -1,11 +1,4 @@
-// import {
-//   popupImage,
-//   imageSrc,
-//   imageTitle,
-//   //openPopup
-// } from "../utils/utils.js";
-
-class Card {
+export default class Card {
   // данные карточки и селектор её темплейт элемента
   constructor(data, selectorTemplate, handleCardClick) {
     this._name = data.name;
@@ -24,25 +17,19 @@ class Card {
     this._elementImage = this._element.querySelector(".element__image");
   }
 
-  // приватные методы по работе с карточкой
+  // метод лайка карточки
   _handleCardLike() {
     this._element
       .querySelector(".element__item-like")
       .classList.toggle("element__item-like_active");
   }
 
+  // метод удаления карточки
   _handleCardDelete() {
     this._element.remove();
   }
 
-  // _handleCardImage() {
-  //   imageSrc.src = this._link;
-  //   imageSrc.alt = this._name;
-  //   imageTitle.textContent = this._name;
-  //   openPopup(popupImage);
-  // }
-
-  // приватный метод установки слушателей событий
+  // метод установки слушателей событий
   _addEventListenerElement() {
     this._element
       .querySelector(".element__item-like")
@@ -61,7 +48,7 @@ class Card {
     });
   }
 
-  // публичный метод для возвращения карточки
+  // метод возвращения карточки
   renderCard() {
     this._getTemplate();
     this._addEventListenerElement();
@@ -73,5 +60,3 @@ class Card {
     return this._element;
   }
 }
-
-export default Card;

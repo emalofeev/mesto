@@ -1,6 +1,7 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
+  // селектор попапа и колбэк сабмита формы
   constructor(selectorPopup, handleFormSubmit) {
     super(selectorPopup);
     this._handleFormSubmit = handleFormSubmit;
@@ -14,7 +15,8 @@ export default class PopupWithForm extends Popup {
     );
   }
 
-  getInputValues() {
+  // приватный метод получения данных полей
+  _getInputValues() {
     this._formValues = {};
     this._inputList.forEach(
       (input) => (this._formValues[input.name] = input.value)
@@ -22,18 +24,23 @@ export default class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  // публичный метод получения данных полей
+  getValues() {
+    return this._formValues;
+  }
+
+  // добавление сброса при закрытии попапа
   close() {
     super.close();
     this._popupItem.reset();
-    this._popupInputLink.classList.remove("popup__input-error_active");
   }
 
+  // добавление слушателя сабмита формы
   setEventListeners() {
     super.setEventListeners();
-    this._popupItem.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      this._handleFormSubmit(this.getInputValues());
-      this._buttonContentSubmit.classList.add("popup__content-submit_inative");
+    this._popupItem.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
     });
   }
 }

@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
   // объект настроек с селекторами и классами, второй параметр - элемент формы
   constructor(listValidation, typeForm) {
     this._formSelector = listValidation.formSelector;
@@ -16,7 +16,7 @@ class FormValidator {
     this._buttonForm = this._typeForm.querySelector(this._submitButtonSelector);
   }
 
-  // приватные методы валидации
+  // методы валидации
   _showInputTypeError = (inputElement, errorMessage) => {
     const _errorElement = this._typeForm.querySelector(`.${inputElement.id}`);
     inputElement.classList.add(this._inputErrorClass);
@@ -57,11 +57,11 @@ class FormValidator {
   }
 
   // метод скрытия ошибок полей формы
-  hideProfileError() {
+  hideError() {
     this._inputList.forEach((input) => this._hideInputTypeError(input));
   }
 
-  // приватный метод установки слушателей событий
+  // метод установки слушателей событий
   _setEventListeners() {
     this.toggleButtonSubmit();
 
@@ -81,5 +81,3 @@ class FormValidator {
     this._setEventListeners();
   }
 }
-
-export default FormValidator;
