@@ -1,7 +1,6 @@
 export default class FormValidator {
-  // объект настроек с селекторами и классами, второй параметр - элемент формы
+  /** объект настроек с селекторами и классами, второй параметр - элемент формы */
   constructor(listValidation, typeForm) {
-    this._formSelector = listValidation.formSelector;
     this._inputSelector = listValidation.inputSelector;
     this._submitButtonSelector = listValidation.submitButtonSelector;
     this._inactiveButtonClass = listValidation.inactiveButtonClass;
@@ -16,7 +15,7 @@ export default class FormValidator {
     this._buttonForm = this._typeForm.querySelector(this._submitButtonSelector);
   }
 
-  // методы валидации
+  /** методы валидации */
   _showInputTypeError = (inputElement, errorMessage) => {
     const _errorElement = this._typeForm.querySelector(`.${inputElement.id}`);
     inputElement.classList.add(this._inputErrorClass);
@@ -39,7 +38,7 @@ export default class FormValidator {
     }
   };
 
-  // метод валидации сабмита
+  /** метод валидации сабмита */
   _hasInvalidInput() {
     return this._inputList.some((input) => {
       return !input.validity.valid;
@@ -47,21 +46,21 @@ export default class FormValidator {
   }
 
   toggleButtonSubmit() {
-    if (this._hasInvalidInput(this._inputList)) {
-      this._buttonForm.setAttribute("disabled", true);
+    if (this._hasInvalidInput()) {
+      this._buttonForm.disabled = true;
       this._buttonForm.classList.add(this._inactiveButtonClass);
     } else {
-      this._buttonForm.removeAttribute("disabled");
+      this._buttonForm.disabled = "";
       this._buttonForm.classList.remove(this._inactiveButtonClass);
     }
   }
 
-  // метод скрытия ошибок полей формы
-  hideError() {
+  /** метод скрытия ошибок полей формы */
+  hideErrors() {
     this._inputList.forEach((input) => this._hideInputTypeError(input));
   }
 
-  // метод установки слушателей событий
+  /** метод установки слушателей событий */
   _setEventListeners() {
     this.toggleButtonSubmit();
 
@@ -73,7 +72,7 @@ export default class FormValidator {
     });
   }
 
-  // публичный метод валидации
+  /** публичный метод валидации */
   enableValidation() {
     this._typeForm.addEventListener("submit", function (evt) {
       evt.preventDefault();

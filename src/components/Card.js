@@ -1,5 +1,5 @@
 export default class Card {
-  // данные карточки и селектор её темплейт элемента
+  /**  данные карточки и селектор её темплейт  */
   constructor(data, selectorTemplate, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
@@ -7,7 +7,7 @@ export default class Card {
     this._handleCardClick = handleCardClick;
   }
 
-  // метод получения разметки карточки
+  /**  метод получения разметки карточки */
   _getTemplate() {
     const cardElement = document
       .querySelector(this._selectorTemplate)
@@ -17,38 +17,34 @@ export default class Card {
     this._elementImage = this._element.querySelector(".element__image");
   }
 
-  // метод лайка карточки
+  /** метод лайка карточки */
   _handleCardLike() {
-    this._element
-      .querySelector(".element__item-like")
-      .classList.toggle("element__item-like_active");
+    this._elementLike.classList.toggle("element__item-like_active");
   }
 
-  // метод удаления карточки
+  /** метод удаления карточки */
   _handleCardDelete() {
     this._element.remove();
+    this._element = null;
   }
 
-  // метод установки слушателей событий
+  /** метод установки слушателей событий */
   _addEventListenerElement() {
-    this._element
-      .querySelector(".element__item-like")
-      .addEventListener("click", () => {
-        this._handleCardLike();
-      });
-
+    this._elementLike = this._element.querySelector(".element__item-like");
+    this._elementLike.addEventListener("click", () => {
+      this._handleCardLike();
+    });
     this._element
       .querySelector(".element__delete")
       .addEventListener("click", () => {
         this._handleCardDelete();
       });
-
     this._elementImage.addEventListener("click", () => {
       this._handleCardClick(this._name, this._link);
     });
   }
 
-  // метод возвращения карточки
+  /** метод возвращения карточки */
   renderCard() {
     this._getTemplate();
     this._addEventListenerElement();

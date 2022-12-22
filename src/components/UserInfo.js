@@ -1,11 +1,11 @@
 export default class UserInfo {
-  // селекторы имени пользователя и информации о нем
+  /** селекторы имени пользователя и информации о нем */
   constructor({ profileName, profileJob }) {
     this._profileName = profileName;
     this._profileJob = profileJob;
   }
 
-  // передача данных пользователя
+  /** передача данных пользователя */
   getUserInfo() {
     return {
       name: this._profileName.textContent,
@@ -13,7 +13,7 @@ export default class UserInfo {
     };
   }
 
-  // получение новых данных пользователя
+  /** получение новых данных пользователя */
   setUserInfo({ name, job }) {
     this._profileName.textContent = name;
     this._profileJob.textContent = job;

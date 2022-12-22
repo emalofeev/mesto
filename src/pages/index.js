@@ -20,33 +20,33 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import "./index.css";
 
-// добавление исходных данных пользователя
+/** добавление исходных данных пользователя */
 const userInfo = new UserInfo({
   profileName: profileName,
   profileJob: profileJob,
 });
 
-// попап для открытия формы редактирования профиля
+/** попап для открытия формы редактирования профиля */
 const popupWithFormUser = new PopupWithForm(popupProfile, () => {
-  const dataUser = popupWithFormUser.getValues();
+  const dataUser = popupWithFormUser.formValues;
   userInfo.setUserInfo(dataUser);
   popupWithFormUser.close();
 });
 
 popupWithFormUser.setEventListeners();
 
-// добавление новых данных пользователя
+/** добавление новых данных пользователя */
 popupProfileOpenButton.addEventListener("click", setUserInfo);
 
 function setUserInfo() {
   const dataUserInput = userInfo.getUserInfo();
   nameProfileInput.value = dataUserInput.name;
   jobProfileInput.value = dataUserInput.job;
-  validatorProfile.hideError();
+  validatorProfile.hideErrors();
   popupWithFormUser.open();
 }
 
-// добавление исходных карточек
+/** добавление исходных карточек */
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
@@ -68,9 +68,9 @@ const cardsSection = new Section(
 
 cardsSection.renderItems();
 
-// добавление новых карточек
+/** добавление новых карточек */
 const popupWithFormCard = new PopupWithForm(popupCard, () => {
-  const dataCard = popupWithFormCard.getValues();
+  const dataCard = popupWithFormCard.formValues;
   cardsSection.addItem(createCard(dataCard));
   popupWithFormCard.close();
 });
@@ -78,14 +78,17 @@ const popupWithFormCard = new PopupWithForm(popupCard, () => {
 popupWithFormCard.setEventListeners();
 
 popupCardOpenButton.addEventListener("click", () => {
-  validatorCard.hideError();
+  validatorCard.toggleButtonSubmit();
+  validatorCard.hideErrors();
   popupWithFormCard.open();
 });
 
-// попап для открытия изображения карточки
+/** попап для открытия изображения карточки */
 const popupWithImage = new PopupWithImage(popupImage);
 
-// валидация форм профиля и карточки
+popupWithImage.setEventListeners();
+
+/** валидация форм профиля и карточки */
 const validatorProfile = new FormValidator(listValidation, formProfile);
 const validatorCard = new FormValidator(listValidation, formCard);
 
