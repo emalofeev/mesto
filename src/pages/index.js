@@ -27,8 +27,8 @@ const userInfo = new UserInfo({
 });
 
 /** попап для открытия формы редактирования профиля */
-const popupWithFormUser = new PopupWithForm(popupProfile, () => {
-  const dataUser = popupWithFormUser.formValues;
+const popupWithFormUser = new PopupWithForm(popupProfile, (values) => {
+  const dataUser = values;
   userInfo.setUserInfo(dataUser);
   popupWithFormUser.close();
 });
@@ -51,8 +51,8 @@ function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
 
-function createCard(item) {
-  const card = new Card(item, "#element-template", handleCardClick);
+function createCard(cardData) {
+  const card = new Card(cardData, "#element-template", handleCardClick);
   return card.renderCard();
 }
 
@@ -69,8 +69,8 @@ const cardsSection = new Section(
 cardsSection.renderItems();
 
 /** добавление новых карточек */
-const popupWithFormCard = new PopupWithForm(popupCard, () => {
-  const dataCard = popupWithFormCard.formValues;
+const popupWithFormCard = new PopupWithForm(popupCard, (values) => {
+  const dataCard = values;
   cardsSection.addItem(createCard(dataCard));
   popupWithFormCard.close();
 });

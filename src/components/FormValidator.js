@@ -6,9 +6,7 @@ export default class FormValidator {
     this._inactiveButtonClass = listValidation.inactiveButtonClass;
     this._inputErrorClass = listValidation.inputErrorClass;
     this._errorClass = listValidation.errorClass;
-
     this._typeForm = typeForm;
-
     this._inputList = Array.from(
       this._typeForm.querySelectorAll(this._inputSelector)
     );
@@ -50,7 +48,7 @@ export default class FormValidator {
       this._buttonForm.disabled = true;
       this._buttonForm.classList.add(this._inactiveButtonClass);
     } else {
-      this._buttonForm.disabled = "";
+      this._buttonForm.disabled = false;
       this._buttonForm.classList.remove(this._inactiveButtonClass);
     }
   }
