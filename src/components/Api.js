@@ -38,6 +38,31 @@ class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
+
+  addCard(dataCard) {
+    return fetch(`${this._baseUrl}cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify(dataCard),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
+
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}cards/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
 }
 
 export const api = new Api({

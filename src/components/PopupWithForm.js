@@ -24,6 +24,11 @@ export default class PopupWithForm extends Popup {
     this._popupForm.reset();
   }
 
+  /** метод создания нового сабмита формы для получения айди */
+  doSubmitHandler(newSubmitHandler) {
+    this._handleFormSubmit = newSubmitHandler;
+  }
+
   /** добавление слушателя сабмита формы */
   setEventListeners() {
     super.setEventListeners();

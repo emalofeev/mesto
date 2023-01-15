@@ -9,3 +9,5 @@ export const profileJob = document.querySelector(".profile__info-job");
 export const popupCard = document.querySelector(".popup_type_card");
 export const popupCardOpenButton = document.querySelector(".profile__button");
 export const formCard = document.querySelector(".popup__content_type_card");
+export const popupDelete = document.querySelector(".popup_type_delete");
+export const userId = {}

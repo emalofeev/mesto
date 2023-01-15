@@ -71,6 +71,16 @@
     </div>
   </div>
 
+  <div class="popup popup_type_delete">
+    <div class="popup__container popup__container-delete">
+      <button class="popup__close" type="button" aria-label="Закрыть окно подтверждения удаления карточки"></button>
+      <h3 class="popup__content-question">Вы уверены?</h3>
+      <form class="popup__content popup__content_type_delete" name="delete-card" novalidate>
+        <button class="popup__content-submit" type="submit">Да</button>
+      </form>
+    </div>
+  </div>
+
   <div class="popup popup_type_image">
     <div class="popup__container-image">
       <button class="popup__close" type="button" aria-label="Закрыть окно с фотографией"></button>
@@ -85,7 +95,10 @@
       <img class="element__image" alt="" src="#">
       <div class="element__item">
         <h2 class="element__item-name"></h2>
-        <button class="element__item-like" type="button" aria-label="Лайкнуть"></button>
+        <div class="element__item-likes">
+          <button class="element__item-like" type="button" aria-label="Лайкнуть"></button>
+          <span class="element__item-amount"></span>
+        </div>
       </div>
     </article>
   </template>

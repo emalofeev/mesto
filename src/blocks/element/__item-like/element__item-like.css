@@ -7,7 +7,8 @@
   background-size: cover;
   border: 0;
   padding: 0;
-  margin-left: 15px;
+  background-position: 50%;
+  margin-bottom: 3px;
 }
 
 .element__item-like:hover {

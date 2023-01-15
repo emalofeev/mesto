@@ -21,7 +21,9 @@
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__item/element__item.css);
 @import url(../blocks/element/__item-name/element__item-name.css);
+@import url(../blocks/element/__item-likes/element__item-likes.css);
 @import url(../blocks/element/__item-like/element__item-like.css);
+@import url(../blocks/element/__item-amount/element__item-amount.css);
 @import url(../blocks/element/__item-like/_active/element__item-like_active.css);
 
 @import url(../blocks/footer/footer.css);
@@ -36,6 +38,8 @@
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__content-submit/popup__content-submit.css);
 @import url(../blocks/popup/__content-submit/_inactive/popup__content-submit_inactive.css);
+@import url(../blocks/popup/__container-delete/popup__container-delete.css);
+@import url(../blocks/popup/__content-question/popup__content-question.css);
 @import url(../blocks/popup/__container-image/popup__container-image.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__image-title/popup__image-title.css);

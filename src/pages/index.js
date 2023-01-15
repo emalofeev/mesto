@@ -10,6 +10,8 @@ import {
   popupCard,
   popupCardOpenButton,
   formCard,
+  popupDelete,
+  userId,
 } from "../utils/constants.js";
 import { initialCards, listValidation } from "../utils/data.js";
 import Card from "../components/Card.js";
@@ -24,15 +26,16 @@ import { data } from "autoprefixer";
 
 /** получение данных профиля с сервера*/
 
-api.getProfileInfo().then((data) => {
-  userInfo.setUserInfo(data);
+api.getProfileInfo().then((dataUser) => {
+  userInfo.setUserInfo(dataUser);
+  userId.id = dataUser._id;
 });
 
 /** получение карточек с сервера*/
 
 api.getInitialCards().then((cardList) => {
-  cardList.forEach((data) => {
-    const card = createCard(data);
+  cardList.forEach((dataCard) => {
+    const card = createCard(dataCard);
     cardsSection.addItem(card);
   });
 });
@@ -43,10 +46,9 @@ const userInfo = new UserInfo({
   profileJob: profileJob,
 });
 
-/** попап для открытия формы редактирования профиля и обновления данных пользователя на сервере */
+/** попап для редактирования данных пользователя на сервере */
 const popupWithFormUser = new PopupWithForm(popupProfile, (values) => {
-  api.editProfile(values)
-  .then((dataUser) => {
+  api.editProfile(values).then((dataUser) => {
     userInfo.setUserInfo(dataUser);
     popupWithFormUser.close();
   });
@@ -71,7 +73,21 @@ function handleCardClick(name, link) {
 }
 
 function createCard(cardData) {
-  const card = new Card(cardData, "#element-template", handleCardClick);
+  const card = new Card(
+    cardData,
+    "#element-template",
+    handleCardClick,
+    (id) => {
+      popupWithFormDelete.open(),
+        popupWithFormDelete.doSubmitHandler(() => {
+          api.deleteCard(id).then(() => {
+            card.handleCardDelete();
+            popupWithFormDelete.close();
+          });
+        });
+    },
+    userId
+  );
   return card.renderCard();
 }
 
@@ -87,10 +103,12 @@ const cardsSection = new Section(
 
 cardsSection.renderItems();
 
-/** добавление новых карточек */
+/** добавление новых карточек на сервер*/
 const popupWithFormCard = new PopupWithForm(popupCard, (values) => {
-  const dataCard = values;
-  cardsSection.addItem(createCard(dataCard));
+  api.addCard(values).then((dataCard) => {
+    cardsSection.addItem(createCard(dataCard));
+    popupWithFormUser.close();
+  });
   popupWithFormCard.close();
 });
 
@@ -106,6 +124,14 @@ popupCardOpenButton.addEventListener("click", () => {
 const popupWithImage = new PopupWithImage(popupImage);
 
 popupWithImage.setEventListeners();
+
+/** попап подтверждения удаления карточки */
+const popupWithFormDelete = new PopupWithForm(popupDelete, () => {
+  console.log("delete");
+  api.deleteCard();
+});
+
+popupWithFormDelete.setEventListeners();
 
 /** валидация форм профиля и карточки */
 const validatorProfile = new FormValidator(listValidation, formProfile);
