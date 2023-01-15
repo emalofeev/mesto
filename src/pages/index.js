@@ -18,7 +18,24 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import { api } from "../components/Api.js";
 import "./index.css";
+import { data } from "autoprefixer";
+
+/** получение данных профиля с сервера*/
+
+api.getProfileInfo().then((data) => {
+  userInfo.setUserInfo(data);
+});
+
+/** получение карточек с сервера*/
+
+api.getInitialCards().then((cardList) => {
+  cardList.forEach((data) => {
+    const card = createCard(data);
+    cardsSection.addItem(card);
+  });
+});
 
 /** добавление исходных данных пользователя */
 const userInfo = new UserInfo({
@@ -26,11 +43,13 @@ const userInfo = new UserInfo({
   profileJob: profileJob,
 });
 
-/** попап для открытия формы редактирования профиля */
+/** попап для открытия формы редактирования профиля и обновления данных пользователя на сервере */
 const popupWithFormUser = new PopupWithForm(popupProfile, (values) => {
-  const dataUser = values;
-  userInfo.setUserInfo(dataUser);
-  popupWithFormUser.close();
+  api.editProfile(values)
+  .then((dataUser) => {
+    userInfo.setUserInfo(dataUser);
+    popupWithFormUser.close();
+  });
 });
 
 popupWithFormUser.setEventListeners();
@@ -41,7 +60,7 @@ popupProfileOpenButton.addEventListener("click", setUserInfo);
 function setUserInfo() {
   const dataUserInput = userInfo.getUserInfo();
   nameProfileInput.value = dataUserInput.name;
-  jobProfileInput.value = dataUserInput.job;
+  jobProfileInput.value = dataUserInput.about;
   validatorProfile.hideErrors();
   popupWithFormUser.open();
 }
@@ -58,7 +77,7 @@ function createCard(cardData) {
 
 const cardsSection = new Section(
   {
-    items: initialCards,
+    items: [],
     renderer: (item) => {
       cardsSection.addItem(createCard(item));
     },

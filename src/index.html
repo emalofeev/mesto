@@ -16,10 +16,10 @@
       <img class="profile__avatar" alt="Аватар" src="<%=require('./images/avatar.png')%>">
       <div class="profile__info">
         <div class="profile__edit">
-          <h1 class="profile__edit-name">Жак-Ив Кусто</h1>
+          <h1 class="profile__edit-name"></h1>
           <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
         </div>
-        <p class="profile__info-job">Исследователь океана</p>
+        <p class="profile__info-job"></p>
       </div>
       <button class="profile__button" type="button" aria-label="Добавить карточку с фотографией"></button>
     </section>
@@ -42,7 +42,7 @@
           <span class="popup__input-error popup__input-error-name"></span>
         </div>
         <div class="popup__item">
-          <input class="popup__input popup__input_type_job" name="job" type="text" placeholder="О себе" minlength="2"
+          <input class="popup__input popup__input_type_job" name="about" type="text" placeholder="О себе" minlength="2"
             maxlength="200" id="popup__input-error-job" required>
           <span class="popup__input-error popup__input-error-job"></span>
         </div>
