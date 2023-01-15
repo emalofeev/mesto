@@ -86,6 +86,17 @@ function createCard(cardData) {
           });
         });
     },
+    (id) => {
+      if (card.isLike()) {
+        api.deleteLike(id).then((dataLikes) => {
+          card.setLikes(dataLikes.likes);
+        });
+      } else {
+        api.addLike(id).then((dataLikes) => {
+          card.setLikes(dataLikes.likes);
+        });
+      }
+    },
     userId
   );
   return card.renderCard();

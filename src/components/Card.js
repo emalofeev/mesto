@@ -7,6 +7,7 @@ export default class Card {
     selectorTemplate,
     handleCardClick,
     handleDeleteClick,
+    handleLikeClick,
     userId
   ) {
     this._name = cardData.name;
@@ -19,6 +20,7 @@ export default class Card {
     this._selectorTemplate = selectorTemplate;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
   }
 
   /**  метод получения разметки карточки */
@@ -31,11 +33,6 @@ export default class Card {
     this._cardImage = this._cardElement.querySelector(".element__image");
   }
 
-  /** метод лайка карточки */
-  _handleCardLike() {
-    this._cardLike.classList.toggle("element__item-like_active");
-  }
-
   /** метод удаления карточки */
   handleCardDelete() {
     this._cardElement.remove();
@@ -46,7 +43,7 @@ export default class Card {
   _addEventListenerElement() {
     this._cardLike = this._cardElement.querySelector(".element__item-like");
     this._cardLike.addEventListener("click", () => {
-      this._handleCardLike();
+      this._handleLikeClick(this._id);
     });
     this._cardElement
       .querySelector(".element__delete")
@@ -58,17 +55,32 @@ export default class Card {
     });
   }
 
-  /** метод получения количества лайков */
-  _setLikes() {
+  /** проверка моего лайка */
+  isLike() {
+    const checkUsersLikes = this._likes.find(
+      (user) => this._userId === user._id
+    );
+    return checkUsersLikes;
+  }
+
+  /** метод получения и обработки лайков */
+  setLikes(usersLikes) {
+    this._likes = usersLikes;
     const likeAmount = this._cardElement.querySelector(".element__item-amount");
     likeAmount.textContent = this._likes.length;
+
+    if (this.isLike()) {
+      this._cardLike.classList.add("element__item-like_active");
+    } else {
+      this._cardLike.classList.remove("element__item-like_active");
+    }
   }
 
   /** метод возвращения карточки */
   renderCard() {
     this._getTemplate();
     this._addEventListenerElement();
-    this._setLikes();
+    this.setLikes(this._likes);
 
     this._cardElement.querySelector(".element__item-name").textContent =
       this._name;
