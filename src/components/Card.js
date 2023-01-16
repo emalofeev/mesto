@@ -1,7 +1,4 @@
-import PopupWithForm from "./PopupWithForm";
-
 export default class Card {
-  /**  данные карточки и селектор её темплейт  */
   constructor(
     cardData,
     selectorTemplate,
@@ -23,7 +20,6 @@ export default class Card {
     this._handleLikeClick = handleLikeClick;
   }
 
-  /**  метод получения разметки карточки */
   _getTemplate() {
     const cardElement = document
       .querySelector(this._selectorTemplate)
@@ -33,13 +29,6 @@ export default class Card {
     this._cardImage = this._cardElement.querySelector(".element__image");
   }
 
-  /** метод удаления карточки */
-  handleCardDelete() {
-    this._cardElement.remove();
-    this._cardElement = null;
-  }
-
-  /** метод установки слушателей событий */
   _addEventListenerElement() {
     this._cardLike = this._cardElement.querySelector(".element__item-like");
     this._cardLike.addEventListener("click", () => {
@@ -55,7 +44,6 @@ export default class Card {
     });
   }
 
-  /** проверка моего лайка */
   isLike() {
     const checkUsersLikes = this._likes.find(
       (user) => this._userId === user._id
@@ -63,7 +51,6 @@ export default class Card {
     return checkUsersLikes;
   }
 
-  /** метод получения и обработки лайков */
   setLikes(usersLikes) {
     this._likes = usersLikes;
     const likeAmount = this._cardElement.querySelector(".element__item-amount");
@@ -76,7 +63,11 @@ export default class Card {
     }
   }
 
-  /** метод возвращения карточки */
+  handleCardDelete() {
+    this._cardElement.remove();
+    this._cardElement = null;
+  }
+
   renderCard() {
     this._getTemplate();
     this._addEventListenerElement();

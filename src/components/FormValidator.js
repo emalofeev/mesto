@@ -1,5 +1,4 @@
 export default class FormValidator {
-  /** объект настроек с селекторами и классами, второй параметр - элемент формы */
   constructor(listValidation, typeForm) {
     this._inputSelector = listValidation.inputSelector;
     this._submitButtonSelector = listValidation.submitButtonSelector;
@@ -13,7 +12,6 @@ export default class FormValidator {
     this._buttonForm = this._typeForm.querySelector(this._submitButtonSelector);
   }
 
-  /** методы валидации */
   _showInputTypeError = (inputElement, errorMessage) => {
     const _errorElement = this._typeForm.querySelector(`.${inputElement.id}`);
     inputElement.classList.add(this._inputErrorClass);
@@ -36,10 +34,20 @@ export default class FormValidator {
     }
   };
 
-  /** метод валидации сабмита */
   _hasInvalidInput() {
     return this._inputList.some((input) => {
       return !input.validity.valid;
+    });
+  }
+
+  _setEventListeners() {
+    this.toggleButtonSubmit();
+
+    this._inputList.forEach((inputElement) => {
+      inputElement.addEventListener("input", () => {
+        this._checkInputValidity(inputElement);
+        this.toggleButtonSubmit();
+      });
     });
   }
 
@@ -53,24 +61,10 @@ export default class FormValidator {
     }
   }
 
-  /** метод скрытия ошибок полей формы */
   hideErrors() {
     this._inputList.forEach((input) => this._hideInputTypeError(input));
   }
 
-  /** метод установки слушателей событий */
-  _setEventListeners() {
-    this.toggleButtonSubmit();
-
-    this._inputList.forEach((inputElement) => {
-      inputElement.addEventListener("input", () => {
-        this._checkInputValidity(inputElement);
-        this.toggleButtonSubmit();
-      });
-    });
-  }
-
-  /** публичный метод валидации */
   enableValidation() {
     this._typeForm.addEventListener("submit", function (evt) {
       evt.preventDefault();
