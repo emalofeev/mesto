@@ -7,11 +7,15 @@ import {
   jobProfileInput,
   profileName,
   profileJob,
+  profileAvatar,
+  popupAvatar,
   popupCard,
   popupCardOpenButton,
+  popupAvatarButton,
   formCard,
   popupDelete,
   userId,
+  formAvatar,
 } from "../utils/constants.js";
 import { initialCards, listValidation } from "../utils/data.js";
 import Card from "../components/Card.js";
@@ -25,14 +29,12 @@ import "./index.css";
 import { data } from "autoprefixer";
 
 /** получение данных профиля с сервера*/
-
 api.getProfileInfo().then((dataUser) => {
   userInfo.setUserInfo(dataUser);
   userId.id = dataUser._id;
 });
 
 /** получение карточек с сервера*/
-
 api.getInitialCards().then((cardList) => {
   cardList.forEach((dataCard) => {
     const card = createCard(dataCard);
@@ -44,6 +46,7 @@ api.getInitialCards().then((cardList) => {
 const userInfo = new UserInfo({
   profileName: profileName,
   profileJob: profileJob,
+  profileAvatar: profileAvatar,
 });
 
 /** попап для редактирования данных пользователя на сервере */
@@ -63,6 +66,7 @@ function setUserInfo() {
   const dataUserInput = userInfo.getUserInfo();
   nameProfileInput.value = dataUserInput.name;
   jobProfileInput.value = dataUserInput.about;
+
   validatorProfile.hideErrors();
   popupWithFormUser.open();
 }
@@ -116,9 +120,9 @@ cardsSection.renderItems();
 
 /** добавление новых карточек на сервер*/
 const popupWithFormCard = new PopupWithForm(popupCard, (values) => {
+  console.log(values);
   api.addCard(values).then((dataCard) => {
     cardsSection.addItem(createCard(dataCard));
-    popupWithFormUser.close();
   });
   popupWithFormCard.close();
 });
@@ -144,9 +148,26 @@ const popupWithFormDelete = new PopupWithForm(popupDelete, () => {
 
 popupWithFormDelete.setEventListeners();
 
+/** изменение аватара */
+const popupWithFormAvatar = new PopupWithForm(popupAvatar, (data) => {
+  api.changeAvatar(data).then((link) => {
+    // profileAvatar.src = link.avatar;
+    userInfo.setUserInfo(link)
+  });
+  popupWithFormAvatar.close();
+});
+
+popupWithFormAvatar.setEventListeners();
+
+popupAvatarButton.addEventListener("click", () => {
+  popupWithFormAvatar.open();
+});
+
 /** валидация форм профиля и карточки */
 const validatorProfile = new FormValidator(listValidation, formProfile);
 const validatorCard = new FormValidator(listValidation, formCard);
+const validatorAvatar = new FormValidator(listValidation, formAvatar);
 
 validatorProfile.enableValidation();
 validatorCard.enableValidation();
+validatorAvatar.enableValidation();

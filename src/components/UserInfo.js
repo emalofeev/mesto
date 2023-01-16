@@ -1,8 +1,9 @@
 export default class UserInfo {
   /** селекторы имени пользователя и информации о нем */
-  constructor({ profileName, profileJob }) {
+  constructor({ profileName, profileJob, profileAvatar }) {
     this._profileName = profileName;
     this._profileJob = profileJob;
+    this._profileAvatar = profileAvatar;
   }
 
   /** передача данных пользователя */
@@ -14,8 +15,9 @@ export default class UserInfo {
   }
 
   /** получение новых данных пользователя */
-  setUserInfo({ name, about }) {
+  setUserInfo({ name, about, avatar }) {
     this._profileName.textContent = name;
     this._profileJob.textContent = about;
+    this._profileAvatar.src = avatar;
   }
 }
