@@ -79,8 +79,7 @@ export default class Card {
     this._cardImage.alt = this._name;
 
     if (this._ownerId !== this._userId) {
-      this._cardElement.querySelector(".element__delete").style.display =
-        "none";
+      this._cardElement.querySelector(".element__delete").remove();
     }
 
     return this._cardElement;

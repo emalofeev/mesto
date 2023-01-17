@@ -4,9 +4,9 @@ import {
   popupProfileOpenButton,
   formProfile,
   nameProfileInput,
-  jobProfileInput,
+  aboutProfileInput,
   profileName,
-  profileJob,
+  profileAbout,
   profileAvatar,
   popupAvatar,
   popupCard,
@@ -23,50 +23,45 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import { api } from "../components/Api.js";
 import "./index.css";
 import { data } from "autoprefixer";
 
 const userInfo = new UserInfo({
-  profileName: profileName,
-  profileJob: profileJob,
-  profileAvatar: profileAvatar,
+  nameSelector: ".profile__edit-name",
+  aboutSelector: ".profile__info-about",
+  avatarSelector: ".profile__avatar",
 });
-
-api
-  .getProfileInfo()
-  .then((dataUser) => {
-    userInfo.setUserInfo(dataUser);
-    userId.id = dataUser._id;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 function setUserFromPopup() {
   const dataUserInput = userInfo.getUserInfo();
   nameProfileInput.value = dataUserInput.name;
-  jobProfileInput.value = dataUserInput.about;
+  aboutProfileInput.value = dataUserInput.about;
+  validatorProfile.toggleButtonSubmit();
   validatorProfile.hideErrors();
-  popupWithFormUser.renderLoading(true, "Сохранить", "Сохранение...");
   popupWithFormUser.open();
 }
 
-const popupWithFormUser = new PopupWithForm(popupProfile, (values) => {
-  api
-    .editProfile(values)
-    .then((dataUser) => {
-      userInfo.setUserInfo(dataUser);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      popupWithFormUser.renderLoading(false, "Сохранить", "Сохранение...");
-      popupWithFormUser.close();
-    });
-});
+const popupWithFormUser = new PopupWithForm(
+  ".popup_type_profile",
+  (dataUser) => {
+    popupWithFormUser.renderLoading(false, "Сохранить", "Сохранение...");
+    api
+      .editProfile(dataUser)
+      .then((res) => {
+        userInfo.setUserInfo(res);
+        popupWithFormUser.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupWithFormUser.renderLoading(true, "Сохранить", "Сохранение...");
+      });
+  }
+);
 
 popupWithFormUser.setEventListeners();
 popupProfileOpenButton.addEventListener("click", setUserFromPopup);
@@ -130,32 +125,29 @@ function createCard(cardData) {
   return card.renderCard();
 }
 
-cardsSection.renderItems();
-
-api
-  .getInitialCards()
-  .then((cardList) => {
-    cardList.forEach((dataCard) => {
-      const card = createCard(dataCard);
-      cardsSection.addItem(card);
-    });
+Promise.all([api.getProfileInfo(), api.getInitialCards()])
+  .then((data) => {
+    userId.id = data[0]._id;
+    userInfo.setUserInfo(data[0]);
+    cardsSection.renderItems(data[1]);
   })
   .catch((err) => {
     console.log(err);
   });
 
-const popupWithFormCard = new PopupWithForm(popupCard, (values) => {
+const popupWithFormCard = new PopupWithForm(".popup_type_card", (dataCard) => {
+  popupWithFormCard.renderLoading(false, "Сохранить", "Сохранение...");
   api
-    .addCard(values)
-    .then((dataCard) => {
-      cardsSection.addItem(createCard(dataCard));
+    .addCard(dataCard)
+    .then((res) => {
+      cardsSection.addItem(createCard(res));
+      popupWithFormCard.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      popupWithFormCard.renderLoading(false, "Создать", "Сохранение...");
-      popupWithFormCard.close();
+      popupWithFormCard.renderLoading(true, "Сохранить", "Сохранение...");
     });
 });
 
@@ -167,26 +159,30 @@ popupCardOpenButton.addEventListener("click", () => {
   popupWithFormCard.open();
 });
 
-const popupWithImage = new PopupWithImage(popupImage);
+const popupWithImage = new PopupWithImage(".popup_type_image");
 popupWithImage.setEventListeners();
 
-const popupWithFormDelete = new PopupWithForm(popupDelete, () => {
-  api.deleteCard();
-});
+const popupWithFormDelete = new PopupWithConfirmation(
+  ".popup_type_delete",
+  () => {
+    api.deleteCard();
+  }
+);
 popupWithFormDelete.setEventListeners();
 
-const popupWithFormAvatar = new PopupWithForm(popupAvatar, (data) => {
+const popupWithFormAvatar = new PopupWithForm(".popup_type_avatar", (data) => {
+  popupWithFormAvatar.renderLoading(false, "Сохранить", "Сохранение...");
   api
     .changeAvatar(data)
     .then((link) => {
       userInfo.setUserInfo(link);
+      popupWithFormAvatar.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      popupWithFormAvatar.renderLoading(false, "Сохранить", "Сохранение...");
-      popupWithFormAvatar.close();
+      popupWithFormAvatar.renderLoading(true, "Сохранить", "Сохранение...");
     });
 });
 
@@ -194,7 +190,6 @@ popupWithFormAvatar.setEventListeners();
 popupAvatarButton.addEventListener("click", () => {
   validatorAvatar.toggleButtonSubmit();
   validatorAvatar.hideErrors();
-  popupWithFormAvatar.renderLoading(true, "Сохранить", "Сохранение...");
   popupWithFormAvatar.open();
 });
 
