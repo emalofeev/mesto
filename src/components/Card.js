@@ -27,6 +27,7 @@ export default class Card {
       .cloneNode(true);
     this._cardElement = cardElement;
     this._cardImage = this._cardElement.querySelector(".element__image");
+    this._likeAmount = this._cardElement.querySelector(".element__item-amount");
   }
 
   _addEventListenerElement() {
@@ -53,8 +54,7 @@ export default class Card {
 
   setLikes(usersLikes) {
     this._likes = usersLikes;
-    const likeAmount = this._cardElement.querySelector(".element__item-amount");
-    likeAmount.textContent = this._likes.length;
+    this._likeAmount.textContent = this._likes.length;
 
     if (this.isLike()) {
       this._cardLike.classList.add("element__item-like_active");

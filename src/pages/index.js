@@ -86,18 +86,18 @@ function createCard(cardData) {
     "#element-template",
     handleCardClick,
     (id) => {
-      popupWithFormDelete.open(),
-        popupWithFormDelete.doSubmitHandler(() => {
-          api
-            .deleteCard(id)
-            .then(() => {
-              card.handleCardDelete();
-              popupWithFormDelete.close();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        });
+      popupWithFormDelete.open();
+      popupWithFormDelete.doSubmitHandler(() => {
+        api
+          .deleteCard(id)
+          .then(() => {
+            card.handleCardDelete();
+            popupWithFormDelete.close();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
     },
     (id) => {
       if (card.isLike()) {
@@ -136,7 +136,7 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
   });
 
 const popupWithFormCard = new PopupWithForm(".popup_type_card", (dataCard) => {
-  popupWithFormCard.renderLoading(false, "Сохранить", "Сохранение...");
+  popupWithFormCard.renderLoading(false, "Создать", "Сохранение...");
   api
     .addCard(dataCard)
     .then((res) => {
@@ -147,7 +147,7 @@ const popupWithFormCard = new PopupWithForm(".popup_type_card", (dataCard) => {
       console.log(err);
     })
     .finally(() => {
-      popupWithFormCard.renderLoading(true, "Сохранить", "Сохранение...");
+      popupWithFormCard.renderLoading(true, "Создать", "Сохранение...");
     });
 });
 
@@ -155,19 +155,13 @@ popupWithFormCard.setEventListeners();
 popupCardOpenButton.addEventListener("click", () => {
   validatorCard.toggleButtonSubmit();
   validatorCard.hideErrors();
-  popupWithFormCard.renderLoading(true, "Создать", "Сохранение...");
   popupWithFormCard.open();
 });
 
 const popupWithImage = new PopupWithImage(".popup_type_image");
 popupWithImage.setEventListeners();
 
-const popupWithFormDelete = new PopupWithConfirmation(
-  ".popup_type_delete",
-  () => {
-    api.deleteCard();
-  }
-);
+const popupWithFormDelete = new PopupWithConfirmation(".popup_type_delete");
 popupWithFormDelete.setEventListeners();
 
 const popupWithFormAvatar = new PopupWithForm(".popup_type_avatar", (data) => {
