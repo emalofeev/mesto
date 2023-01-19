@@ -1,21 +1,13 @@
 import {
-  popupImage,
-  popupProfile,
   popupProfileOpenButton,
   formProfile,
   nameProfileInput,
   aboutProfileInput,
-  profileName,
-  profileAbout,
-  profileAvatar,
-  popupAvatar,
-  popupCard,
   popupCardOpenButton,
   popupAvatarButton,
   formCard,
-  popupDelete,
-  userId,
   formAvatar,
+  userId,
 } from "../utils/constants.js";
 import { listValidation } from "../utils/data.js";
 import Card from "../components/Card.js";
