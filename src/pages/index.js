@@ -87,7 +87,7 @@ function createCard(cardData) {
     handleCardClick,
     (id) => {
       popupWithFormDelete.open();
-      popupWithFormDelete.doSubmitHandler(() => {
+      popupWithFormDelete.setFormDelete(() => {
         api
           .deleteCard(id)
           .then(() => {
