@@ -18,7 +18,6 @@ Mesto - это интерактивная страница для публика
 * API
 * БЭМ
 * ООП
-* VS Code
 * Webpack
 * Figma
 * Github
