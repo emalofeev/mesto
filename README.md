@@ -4,7 +4,7 @@
 
 * Описание
 * Технологии
-* Cсылка на GitHub Pages
+* Cсылка на проект
 
 ## Описание
 
@@ -23,6 +23,4 @@ Mesto - это интерактивная страница для публика
 * Figma
 * Github
 
-## Cсылка на GitHub Pages
-
-* [Ссылка на проект](https://emalofeev.github.io/mesto/)
+## [Ссылка на проект](https://emalofeev.github.io/mesto/)
